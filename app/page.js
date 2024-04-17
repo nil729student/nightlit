@@ -3,17 +3,19 @@
 import Image from "next/image";
 import listClubs from "./lib/clubsActions/listClubs";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
 
   const [clubs, setClubs] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
 
   async function fetchClubs() {
     const clubs = await listClubs();
     console.log(clubs);
     setClubs(clubs);
   }
-  
+
   useEffect(() => {
     fetchClubs();
   }, []);
@@ -23,24 +25,44 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <h1 className="text-4xl font-bold mb-8">NightLit  </h1>
-        <p className="text-lg text-gray-500">
-          Get started by editing{" "}
-          <code className="text-sm font-mono bg-gray-100 dark:bg-neutral-800/30 dark:text-neutral-200 p-1 rounded">
-            pages/index.js
-          </code>
-        </p>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {clubs.map((club) => {
+        return (
+          <div key={club.id} className="flex flex-col items-center justify-center w-64 h-64 p-8 m-4 bg-white rounded-lg shadow-lg dark:bg-neutral-800/30">
+            <motion.div
+
+              onClick={() => setSelectedId(club.id)}
+            >
+              <motion.h5>{club.name}</motion.h5>
+              <motion.h2>{club.website}</motion.h2>
+            </motion.div>
+          </div>
+        );
+      })}
+      <AnimatePresence>
+        {selectedId && (
+          <motion.div
+            layoutId={selectedId}
+            //animation popup
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-black bg-opacity-50"
+          >
+            <motion.h5>{clubs.find(club => club.id === selectedId).name}</motion.h5>
+            <motion.h2>{clubs.find(club => club.id === selectedId).website}</motion.h2>
+            <motion.button
+              className="absolute top-4 right-4"
+              onClick={() => setSelectedId(null)}>Close</motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+
+
+
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
         <a
