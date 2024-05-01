@@ -11,15 +11,27 @@ export default function Home() {
 
   const [clubs, setClubs] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
-  const [votingClub, setVotingClub] = useState({
-    id: null,
-    vote: 0,
-  });
+  const [pollClub, setpollClub] = useState({});
 
   async function fetchClubs() {
     const clubs = await listClubs();
     console.log(clubs);
     setClubs(clubs);
+  }
+
+
+  const handlePullUp = (idClub) => {
+    setpollClub(prevPollClub => ({
+      ...prevPollClub,
+      [idClub]: (prevPollClub[idClub] || 0) + 1,
+    }));
+  }
+
+  const handlePullDown = (idClub) => {
+    setpollClub(prevPollClub => ({
+      ...prevPollClub,
+      [idClub]: (prevPollClub[idClub] || 0) - 1,
+    }));
   }
 
   useEffect(() => {
@@ -43,29 +55,16 @@ export default function Home() {
               <motion.h2>{club.website}</motion.h2>
             </motion.div>
             <div className="flex flex-col justify-center">
-              <button onClick={() =>
-                setVotingClub({
-                  id: club.id,
-                  vote: votingClub.vote + 1,
-                }) ||
-                console.log(votingClub)
-              }>
+              <button onClick={() => handlePullUp(club.id)}>
 
                 <FeatherIcon icon="arrow-up" className="W-3" />
-              
+
               </button>
-              <span className="m-2"> 
-
-                {votingClub.id === club.id ? votingClub.vote : club.vote}
+              <span className="m-2">
+                {pollClub[club.id] || 0}
               </span>
-
               <button
-                onClick={() =>
-                  setVotingClub({
-                    id: club.id,
-                    vote: votingClub.vote - 1,
-                  })
-                }
+                onClick={ () => handlePullDown(club.id)}
               >
                 <FeatherIcon icon="arrow-down" className="W-3" />
               </button>
