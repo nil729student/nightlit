@@ -1,0 +1,77 @@
+@startuml
+!define RECTANGLE class
+
+RECTANGLE datasource {
+  +provider: String
+  +url: String
+}
+
+RECTANGLE generator {
+  +provider: String
+}
+
+RECTANGLE User {
+  +id: Int
+  +name: String
+  +email: String
+}
+
+RECTANGLE Club {
+  +id: Int
+  +name: String
+  +amenity: String
+  +addrStreet: String
+  +addrHouseNumber: String
+  +latitude: Float
+  +longitude: Float
+  +website: String
+  +instagram: String
+  +facebook: String
+  +phone: String
+  +email: String
+  +nodeId: String
+  +rating: Float
+  +information: String
+}
+
+RECTANGLE Pull {
+  +id: Int
+  +userId: Int
+  +clubId: Int
+  +pull: Int
+  +week: DateTime
+}
+
+RECTANGLE Song {
+  +id: Int
+  +title: String
+  +artist: String
+}
+
+RECTANGLE Playlist {
+  +id: Int
+  +clubId: Int
+  +songId: Int
+}
+
+RECTANGLE SongPull {
+  +id: Int
+  +userId: Int
+  +songId: Int
+  +pull: Int
+  +week: DateTime
+}
+
+User "1" -- "0..*" Pull: pulls
+User "1" -- "0..*" SongPull: songPulls
+Club "1" -- "0..*" Pull: pulls
+Club "1" -- "0..*" Playlist: playlists
+Pull "n" -- "1" User: user
+Pull "n" -- "1" Club: club
+Song "1" -- "0..*" Playlist: playlists
+Song "1" -- "0..*" SongPull: songPulls
+Playlist "n" -- "1" Club: club
+Playlist "n" -- "1" Song: song
+SongPull "n" -- "1" User: user
+SongPull "n" -- "1" Song: song
+@enduml

@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image";
+import userPullAaction from "./lib/clubsActions/pullActions/userPullActions";
 import listClubs from "./lib/clubsActions/listClubs";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,7 +12,8 @@ export default function Home() {
 
   const [clubs, setClubs] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
-  const [pollClub, setpollClub] = useState({});
+  const [pollClub, setPollClub] = useState({});
+  const [disabledClubs, setDisabledClubs] = useState({});
 
   async function fetchClubs() {
     const clubs = await listClubs();
@@ -20,19 +22,51 @@ export default function Home() {
   }
 
 
+
+  const handleDisabledClubs = (idClub) => {
+
+    // Deshabilitar el botón de pull down durante 5 segundos
+    setDisabledClubs(prevDisabledClubs => ({
+      ...prevDisabledClubs,
+      [idClub]: true,
+    }));
+
+    setTimeout(() => {
+      setDisabledClubs(prevDisabledClubs => ({
+        ...prevDisabledClubs,
+        [idClub]: false,
+      }));
+    }, 5000);
+  }
+
+
+
   const handlePullUp = (idClub) => {
-    setpollClub(prevPollClub => ({
+    // Lógica para insertar en la base de datos el incremento
+
+    setPollClub(prevPollClub => ({
       ...prevPollClub,
       [idClub]: (prevPollClub[idClub] || 0) + 1,
     }));
-  }
+
+    //userPullAaction(idClub, "pullUp")
+
+    handleDisabledClubs(idClub);
+  };
 
   const handlePullDown = (idClub) => {
-    setpollClub(prevPollClub => ({
+    // Lógica para insertar en la base de datos el decremento
+
+    setPollClub(prevPollClub => ({
       ...prevPollClub,
       [idClub]: (prevPollClub[idClub] || 0) - 1,
     }));
+
+    //userPullAaction(idClub, "pullDown")
+
+    handleDisabledClubs(idClub);
   }
+
 
   useEffect(() => {
     fetchClubs();
@@ -55,7 +89,10 @@ export default function Home() {
               <motion.h2>{club.website}</motion.h2>
             </motion.div>
             <div className="flex flex-col justify-center">
-              <button onClick={() => handlePullUp(club.id)}>
+              <button 
+                disabled={disabledClubs[club.id]} 
+                onClick={() => handlePullUp(club.id)}
+              >
 
                 <FeatherIcon icon="arrow-up" className="W-3" />
 
@@ -64,7 +101,8 @@ export default function Home() {
                 {pollClub[club.id] || 0}
               </span>
               <button
-                onClick={ () => handlePullDown(club.id)}
+                disabled={disabledClubs[club.id]}
+                onClick={() => handlePullDown(club.id)}
               >
                 <FeatherIcon icon="arrow-down" className="W-3" />
               </button>
