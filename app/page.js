@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import userPullAaction from "./lib/clubsActions/pullActions/userPullActions";
+import { addPullUp } from "./lib/clubsActions/pullActions/userPullActions";
 import listClubs from "./lib/clubsActions/listClubs";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -41,15 +41,14 @@ export default function Home() {
 
 
 
-  const handlePullUp = (idClub) => {
+  const handlePullUp = async (idClub) => {
+    console.log("idClub", idClub);
     // Lógica para insertar en la base de datos el incremento
-
+    await addPullUp(idClub);
     setPollClub(prevPollClub => ({
       ...prevPollClub,
       [idClub]: (prevPollClub[idClub] || 0) + 1,
     }));
-
-    //userPullAaction(idClub, "pullUp")
 
     handleDisabledClubs(idClub);
   };
