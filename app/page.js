@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import { addPullUp } from "./lib/clubsActions/pullActions/userPullActions";
+import { addPullUp, getClubVote } from "./lib/clubsActions/pullActions/userPullActions";
 import listClubs from "./lib/clubsActions/listClubs";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,12 +16,19 @@ export default function Home() {
   const [disabledClubs, setDisabledClubs] = useState({});
 
   async function fetchClubs() {
+    const pollClub = await getClubVote();
     const clubs = await listClubs();
-    console.log(clubs);
+
+    setPollClub(pollClub.reduce((acc, vote) => {
+      acc[vote.clubId] = (acc[vote.clubId] || 0) + vote.vote;
+      console.log("acc", acc);
+      return acc;
+    }, {}));
+    
     setClubs(clubs);
   }
 
-
+  console.log("pollClub", pollClub);
 
   const handleDisabledClubs = (idClub) => {
 
@@ -39,6 +46,8 @@ export default function Home() {
     }, 5000);
   }
 
+
+  
 
 
   const handlePullUp = async (idClub) => {
@@ -62,7 +71,6 @@ export default function Home() {
     }));
 
     //userPullAaction(idClub, "pullDown")
-
     handleDisabledClubs(idClub);
   }
 
