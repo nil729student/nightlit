@@ -19,8 +19,10 @@ model Club {
   id                Int            @id @default(autoincrement())
   name              String?
   amenity           String
+  addrCity          String?
   addrStreet        String?
   addrHouseNumber   String?
+  addrpostcode      String?
   latitude          Float
   longitude         Float
   website           String?
