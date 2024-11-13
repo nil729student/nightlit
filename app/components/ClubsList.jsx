@@ -31,8 +31,9 @@ export default function ClubsList() {
   return (
     <>
       <SearchBar clubs={clubs} setFilteredClubs={setFilteredClubs} />
-      {filteredClubs.map((club) => (
+      {filteredClubs.map((club, index) => (
         <Club
+          key={index}
           clubData={club}
           pollClub={pollClub}
           setPollClub={setPollClub}

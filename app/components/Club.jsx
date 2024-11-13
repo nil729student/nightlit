@@ -35,8 +35,6 @@ const generateMosaicBackground = () => {
 export default function Club({ clubData, pollClub, setPollClub }) {
     const [selectedId, setSelectedId] = useState(null);
     const [disabledClubs, setDisabledClubs] = useState({});
-    console.log("clubData", clubData);
-
 
     const handleDisabledClubs = (idClub) => {
         setDisabledClubs(prevDisabledClubs => ({
