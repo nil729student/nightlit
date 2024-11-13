@@ -1,10 +1,10 @@
-import listClubs from '../lib/clubsActions/listClubs.js';
+import {listClubs, listClubsByCity} from '../lib/clubsActions/listClubs.js';
 import { addPullUp, getClubVote } from "../lib/clubsActions/pullActions/userPullActions.js";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import FeatherIcon from 'feather-icons-react';
-import Club from './Club.js';
-import { SearchBar } from './SearchBar.js';
+import { SearchBar } from './SearchBar.jsx';
+import Club from './Club.jsx';
 
 export default function ClubsList() {
   const [clubs, setClubs] = useState([]);
@@ -13,7 +13,7 @@ export default function ClubsList() {
 
   async function fetchClubs() {
     const pollClub = await getClubVote();
-    const clubs = await listClubs();
+    const clubs = await listClubsByCity();
 
     setPollClub(pollClub.reduce((acc, vote) => {
       acc[vote.clubId] = (acc[vote.clubId] || 0) + vote.vote;
@@ -32,10 +32,10 @@ export default function ClubsList() {
     <>
       <SearchBar clubs={clubs} setFilteredClubs={setFilteredClubs} />
       {filteredClubs.map((club) => (
-        <Club 
-          clubData={club} 
-          pollClub={pollClub} 
-          setPollClub={setPollClub} 
+        <Club
+          clubData={club}
+          pollClub={pollClub}
+          setPollClub={setPollClub}
         />
       ))}
     </>

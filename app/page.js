@@ -1,6 +1,6 @@
 "use client"
 
-import ClubsList from "../app/components/ClubsList";
+import ClubsList from "./components/ClubsList";
 
 export default function Home() {
 
@@ -11,7 +11,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold mb-8">NightLit  </h1>
       </div>
 
-      
+
       <ClubsList />
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">

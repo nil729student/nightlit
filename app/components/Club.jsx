@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import FeatherIcon from 'feather-icons-react';
 import { generateDiscoMosaicBackground } from '../utils/ColorGenerator.js'
 import './Club.css';
+import { Concert_One } from "next/font/google/index.js";
 
 // Función para generar un color aleatorio
 /*
@@ -34,10 +35,8 @@ const generateMosaicBackground = () => {
 export default function Club({ clubData, pollClub, setPollClub }) {
     const [selectedId, setSelectedId] = useState(null);
     const [disabledClubs, setDisabledClubs] = useState({});
+    console.log("clubData", clubData);
 
-    useEffect(() => {
-        console.log("pollClub", pollClub);
-    }, [pollClub]);
 
     const handleDisabledClubs = (idClub) => {
         setDisabledClubs(prevDisabledClubs => ({
@@ -93,6 +92,9 @@ export default function Club({ clubData, pollClub, setPollClub }) {
                     <div className="flex flex-col items-center justify-center">
                         <motion.h2 className="text-center">{clubData.website}</motion.h2>
                     </div>
+                    <motion.div
+                            className=""
+                    >{clubData.addrCity}</motion.div>
                 </motion.div>
                 <div className="flex flex-col bg-black h-1/2 ml-2 mt-20 rounded-full  justify-center">
                     <button
@@ -131,6 +133,7 @@ export default function Club({ clubData, pollClub, setPollClub }) {
                         >
                             Close
                         </motion.button>
+
                     </motion.div>
                 )}
             </AnimatePresence>
