@@ -1,0 +1,39 @@
+Autentificació d'usuari
+- Regeneració de contrasenya per mail
+- Autentificació google
+- perfil d'usuari
+    - foto del usuari
+    - Dades del usuari
+    - Sistema de votacions no pots votar negatiu pro si que resti
+
+- l'usuari pugi fer votacions
+    . validació limitada per temps
+
+- Enviar mail mostrar ranking de discoteca i de cançons setmanal ment
+- Cada semana s'esborrin les votacion de totes les dicoteques
+
+Cançons
+- Llistat de cançons per discoteca.
+
+Fer tres tipos de usuari( nou camp a la taula usuari ROL)
+-  admin (nomes hi haura un admin)
+-  propietari (modifica les cançons de la seva discoteca)
+-  usuari normal 
+
+Extres
+Utilitats
+Propostes de cançons
+- Vista propostes pot aceptar propostes
+- Mostrar a un componet totes les cançons que no estigui associada a la llista de a quella discoteca
+
+model Propostes {
+  id                Int            @id @default(autoincrement())
+  userId             Int
+  songId
+  clubId // Perdefecte null
+  artist            String
+  playlists         Playlist[]
+  songVotes         SongVote[]
+}
+
+Entregar: 13/01/25

@@ -26,17 +26,17 @@ export function SearchBar({ clubs, setFilteredClubs }) {
   }, [filteredClubs, setFilteredClubs]);
 
   return (
-    <div className="flex items-center justify-center w-full mb-8">
+    <div className="flex flex-col items-center justify-center w-full mb-8 pl-52 pr-52 md:flex-row">
       <input
         type="text"
         placeholder="Search Club"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-1/3 p-2 m-4 text-2xl text-center border-2 text-black border-black rounded-lg"
+        className="w-full p-2 m-2 text-lg text-center border-2 text-black border-black rounded-lg md:w-3/5 md:text-2xl"
       />
 
       <Select
-        className="p-2 m-4 text-2xl text-center border-2 text-black border-black rounded-lg"
+        className="w-full p-2 m-2 text-lg text-center border-2 text-black border-black rounded-lg md:w-2/5 md:text-2xl"
         options={optionsCity}
         onChange={(selectedOption) => setSearchTermCity(selectedOption ? selectedOption.value : "")}
         isSearchable
