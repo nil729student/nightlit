@@ -10,7 +10,12 @@ export default function OwnerRegisterPage() {
         email: "",
         password: "",
         clubName: "",
+        nif: "",
         amenity: "",
+        region: "",
+        addrCity: "",
+        addrStreet: "",
+        addrHouseNumber: "",
     });
 
     const handleChange = (e) => {
@@ -25,9 +30,12 @@ export default function OwnerRegisterPage() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-yellow-500 to-red-500 text-white">
+        <div className="flex flex-col items-center justify-center h-screen pt-3 pb-3 bg-gradient-to-r from-yellow-500 to-red-500 text-white">
             <h1 className="text-4xl font-bold mb-8">Register Your Club</h1>
-            <form className="bg-white text-black p-6 rounded-lg shadow-md w-full max-w-md" onSubmit={handleSubmit}>
+            <Link href="/register">
+                Back to login
+            </Link>
+            <form className="bg-white text-black p-6 rounded-lg shadow-md w-full max-w-md overflow-auto" onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="name" className="block text-sm font-bold mb-2">Name</label>
                     <input
@@ -73,12 +81,34 @@ export default function OwnerRegisterPage() {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="amenity" className="block text-sm font-bold mb-2">Main Amenity</label>
+                    <label htmlFor="addrCity" className="block text-sm font-bold mb-2">Name city or town</label>
                     <input
                         type="text"
-                        id="amenity"
-                        name="amenity"
-                        value={formData.amenity}
+                        id="addrCity"
+                        name="addrCity"
+                        value={formData.addrCity}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border rounded-lg"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="addrStreet" className="block text-sm font-bold mb-2">Carrer</label>
+                    <input
+                        type="text"
+                        id="addrStreet"
+                        name="addrStreet"
+                        value={formData.addrStreet}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border rounded-lg"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="addrHouseNumber" className="block text-sm font-bold mb-2">Numero</label>
+                    <input
+                        type="text"
+                        id="addrHouseNumber"
+                        name="addrHouseNumber"
+                        value={formData.addrHouseNumber}
                         onChange={handleChange}
                         className="w-full px-3 py-2 border rounded-lg"
                     />
@@ -89,7 +119,7 @@ export default function OwnerRegisterPage() {
                 >
                     Register
                 </button>
-
+                
                 <Link href="/register">
                     <button className=" hover:border-b-4 ">
                         I a standard user!

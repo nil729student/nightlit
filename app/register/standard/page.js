@@ -1,8 +1,8 @@
-// File: /app/register/standard/page.tsx
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
+import { registerUser } from "@/lib/registerUser";
 
 export default function StandardRegisterPage() {
     const [formData, setFormData] = useState({
@@ -10,6 +10,7 @@ export default function StandardRegisterPage() {
         email: "",
         password: "",
     });
+    const [message, setMessage] = useState("");
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -18,14 +19,32 @@ export default function StandardRegisterPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Falta implementr la loguica de reguistre
-        console.log("Registre de usuari estandard: ", formData);
+        setMessage("");
+
+        try {
+            // Llamada directa a la función del servidor
+            const result = await registerUser(formData);
+
+            if (result.success) {
+                setMessage("Registration successful! You can now log in.");
+            } else {
+                setMessage(result.error || "Registration failed.");
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            setMessage("Something went wrong. Please try again.");
+        }
     };
 
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-purple-500 to-pink-500 text-white">
             <h1 className="text-4xl font-bold mb-8">Join us 🍻</h1>
-            <form className="f p-6 rounded-lg shadow-xl w-full max-w-md" onSubmit={handleSubmit}>
+            <form className="p-6 rounded-lg shadow-xl w-full max-w-md" onSubmit={handleSubmit}>
+                {message && (
+                    <p className={`text-sm mb-4 ${message.includes("successful") ? "text-green-500" : "text-red-500"}`}>
+                        {message}
+                    </p>
+                )}
                 <div className="mb-4">
                     <label htmlFor="name" className="block text-sm font-bold mb-2">Name</label>
                     <input
@@ -65,12 +84,14 @@ export default function StandardRegisterPage() {
                 >
                     Register
                 </button>
-                
-                <Link href="/register/owner">
-                    <button className=" hover:border-b ">
-                        I'm a ouwner club or event!
-                    </button>
-                </Link>
+                <div className="mt-4 flex justify-between">
+                    <Link href="/register/owner" className="text-sm hover:underline">
+                        I'm a club owner!
+                    </Link>
+                    <Link href="/login" className="text-sm hover:underline">
+                        Back to login
+                    </Link>
+                </div>
             </form>
         </div>
     );
