@@ -22,7 +22,6 @@ export default function StandardRegisterPage() {
         setMessage("");
 
         try {
-            // Llamada directa a la función del servidor
             const result = await registerUser(formData);
 
             if (result.success) {

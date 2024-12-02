@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 export default function LoginPage() {
     const [formData, setFormData] = useState({ email: "", password: "" });
     const [error, setError] = useState("");
+    const router = useRouter();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -15,7 +16,19 @@ export default function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(""); // Clear previous errors
+        setError(""); // Netegem els errors pevis
+
+        const result = await signIn("credentials", {
+            redirect: false,
+            email: formData.email,
+            password: formData.password,
+        });
+
+        if (result.error) {
+            setError("Invalid email or password.");
+        } else {
+            router.push("/"); // Rediriguim a la paguina prinsipal
+        }
     };
 
     return (
@@ -60,11 +73,6 @@ export default function LoginPage() {
                 >
                     Login
                 </button>
-                <Link href="/register">
-                    <button className=" hover:border-b ">
-                        you don't have an account?
-                    </button>
-                </Link>
             </form>
         </div>
     );

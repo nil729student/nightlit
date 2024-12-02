@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "app/",
     "paths": {
+      // Accessos directes
       "@/*": ["./*"],
       "@/lib/*": ["lib/*"]
       

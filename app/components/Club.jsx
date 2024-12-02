@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 import { addPullUp } from "../lib/clubsActions/pullActions/userPullActions.js";
 import { motion, AnimatePresence } from "framer-motion";
 import FeatherIcon from 'feather-icons-react';
 import { generateDiscoMosaicBackground } from '../utils/ColorGenerator.js'
 import './Club.css';
-import { Concert_One } from "next/font/google/index.js";
+import { useRouter } from "next/navigation"
 
 // Función para generar un color aleatorio
 /*
@@ -33,8 +34,11 @@ const generateMosaicBackground = () => {
 
 
 export default function Club({ clubData, pollClub, setPollClub }) {
+    const { data: session, status } = useSession();
     const [selectedId, setSelectedId] = useState(null);
     const [disabledClubs, setDisabledClubs] = useState({});
+
+    const router = useRouter();
 
     const handleDisabledClubs = (idClub) => {
         setDisabledClubs(prevDisabledClubs => ({
@@ -51,6 +55,11 @@ export default function Club({ clubData, pollClub, setPollClub }) {
     }
 
     const handlePullUp = async (idClub) => {
+        if (!session) {
+            router.push("/login"); // Redirige al login
+            return;
+        }
+
         await addPullUp(idClub);
         setPollClub(prevPollClub => ({
             ...prevPollClub,
@@ -61,6 +70,11 @@ export default function Club({ clubData, pollClub, setPollClub }) {
     };
 
     const handlePullDown = (idClub) => {
+        if (!session) {
+            router.push("/login"); // Redirige al login
+            return;
+        }
+
         setPollClub(prevPollClub => ({
             ...prevPollClub,
             [idClub]: (prevPollClub[idClub] || 0) - 1,
