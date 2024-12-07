@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import prisma from "@/lib/prisma";
+import prisma from "../../../lib/prisma";
 import bcrypt from "bcryptjs";
 
 export const authOptions = {
@@ -27,7 +27,7 @@ export const authOptions = {
                     throw new Error("Invalid credentials.");
                 }
 
-                return { id: user.id, name: user.name, email: user.email };
+                return { id: user.id, name: user.name, email: user.email, role: user.role};
             },
         }),
     ],
@@ -44,6 +44,7 @@ export const authOptions = {
             if (user) {
                 token.id = user.id;
                 token.email = user.email;
+                token.role = user.role
             }
             return token;
         },
@@ -52,6 +53,7 @@ export const authOptions = {
             if (token) {
                 session.user.id = token.id;
                 session.user.email = token.email;
+                session.user.role = token.role
             }
             return session;
         },

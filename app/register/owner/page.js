@@ -1,21 +1,25 @@
 // File: /app/register/owner/page.tsx
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { registerUser } from '../../lib/registerUser'
 
 export default function OwnerRegisterPage() {
+    const router = useRouter()
+    const [message, setMessage] = useState("");
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
+        role: "OWNER",
         clubName: "",
-        nif: "",
-        amenity: "",
-        region: "",
+        //region: "", comarca
         addrCity: "",
         addrStreet: "",
         addrHouseNumber: "",
+
     });
 
     const handleChange = (e) => {
@@ -25,7 +29,21 @@ export default function OwnerRegisterPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Falta implementar la logica de reguistre
+        setMessage("");
+        try {
+            const result = await registerUser(formData);
+            if (result.success) {
+                setMessage("Registration successful! You can now log in.");
+                router.push("/login");
+            } else {
+                setMessage(result.error || "Registration failed.")
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            setMessage("Something went worng. Please try again.");
+
+        }
+
         console.log("Reguistre de usuari owner: ", formData);
     };
 
@@ -36,6 +54,11 @@ export default function OwnerRegisterPage() {
                 Back to login
             </Link>
             <form className="bg-white text-black p-6 rounded-lg shadow-md w-full max-w-md overflow-auto" onSubmit={handleSubmit}>
+                {message && (
+                    <p className={`text-sm mb-4 ${message.includes("successful") ? "text-green-500" : "text-red-500"}`}>
+                        {message}
+                    </p>
+                )}
                 <div className="mb-4">
                     <label htmlFor="name" className="block text-sm font-bold mb-2">Name</label>
                     <input
@@ -119,10 +142,10 @@ export default function OwnerRegisterPage() {
                 >
                     Register
                 </button>
-                
+
                 <Link href="/register">
                     <button className=" hover:border-b-4 ">
-                        I a standard user!
+                        I'm user!
                     </button>
                 </Link>
             </form>

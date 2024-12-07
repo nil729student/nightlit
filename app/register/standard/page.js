@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { registerUser } from "@/lib/registerUser";
+import { registerUser } from "../../lib/registerUser";
 
 export default function StandardRegisterPage() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
+        role: "STANDARD"
     });
     const [message, setMessage] = useState("");
 

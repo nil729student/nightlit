@@ -33,7 +33,8 @@ export default function LoginPage() {
 
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-purple-500 to-blue-500 text-white">
-            <h1 className="text-4xl font-bold mb-8">Welcome Back!</h1>
+            <h1 className="text-4xl font-bold mb-3">Welcome Back!</h1>
+            <a href="/register" className="border-b-2 mb-1">Registrate</a>
             <form
                 className="bg-white text-black p-6 rounded-lg shadow-md w-full max-w-md"
                 onSubmit={handleSubmit}
@@ -73,6 +74,7 @@ export default function LoginPage() {
                 >
                     Login
                 </button>
+                
             </form>
         </div>
     );

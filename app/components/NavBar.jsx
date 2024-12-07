@@ -1,13 +1,14 @@
 "use client"
 import { useState } from 'react';
-
+import LogoutButton from './loginComponents/LogoutButton';
+import { useSession } from 'next-auth/react';
 export function NavBar() {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+    const { data: session } = useSession();
 
     const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);  
+        setIsDropdownOpen(!isDropdownOpen);
     };
 
     return (
@@ -16,13 +17,32 @@ export function NavBar() {
                 <a href="" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <span className="self-center text-2xl font-bold whitespace-nowrap dark:text-white">NightLit</span>
                 </a>
+                <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+                    <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                        <li>
+                            <a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
+                        </li>
+                        <li>
+                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+                        </li>
+                        <li>
+                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+                        </li>
+                        <li>
+                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+                        </li>
+                    </ul>
+                </div>
                 <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     <button
                         type="button"
                         className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                         id="user-menu-button"
-                        aria-expanded={isDropdownOpen ? "true" : "false"}  
-                        onClick={toggleDropdown}  
+                        aria-expanded={isDropdownOpen ? "true" : "false"}
+                        onClick={toggleDropdown}
                     >
                         <span className="sr-only">Open user menu</span>
                         <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo" />
@@ -33,25 +53,40 @@ export function NavBar() {
                         className={`z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${isDropdownOpen ? 'block' : 'hidden'}`}  // Condicionamos la visibilidad
                         id="user-dropdown"
                     >
-                        <div className="px-4 py-3">
-                            <span className="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-                            <span className="block text-sm text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
-                        </div>
-                        <ul className="py-2" aria-labelledby="user-menu-button">
-                            <li>
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-                            </li>
+
+                        <ul className="py-2 content-center" aria-labelledby="user-menu-button">
+                            {session ? (
+                                <>
+                                    <div className="px-4 py-3">
+                                        <span className="block text-sm text-gray-900 dark:text-white"></span>
+                                        <span className="block text-sm text-gray-500 truncate dark:text-gray-400">{session.user.email}</span>
+                                    </div>
+                                    {session.user.role === 'OWNER' && (
+                                        <li>
+                                            <a href="/club" className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                                Your Club
+                                            </a>
+                                        </li>
+                                    )}
+                                    <li>
+                                        <a href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profile</a>
+                                    </li>
+                                    <li>
+                                        <LogoutButton />
+                                    </li>
+                                </>
+                            ) : (
+                                <>
+                                    <li>
+                                        <a href="/login" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Login</a>
+                                    </li>
+                                </>
+                            )}
+
                         </ul>
+
                     </div>
+
                     <button
                         data-collapse-toggle="navbar-user"
                         type="button"
@@ -66,6 +101,6 @@ export function NavBar() {
                     </button>
                 </div>
             </div>
-        </nav>
+        </nav >
     );
 }
