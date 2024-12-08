@@ -1,37 +1,52 @@
-"use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getUserData, updateUserData } from "../../lib/userActions/userDataActions"
 
 export default function StandardProfileForm({ user }) {
+  const [message, setMessage] = useState("")
   const [formData, setFormData] = useState({
-    name: user.name || "",
-    email: user.email || "",
-    image: user.image || "/default-profile.png",
+    name: "",
+    email: "",
+    image: "/default-profile.png",
   });
 
+  async function fetchUserData() {
+    const userData = await getUserData(user.id);
+    setFormData({
+      name: userData.name || "",
+      email: userData.email || "",
+      image: userData.image || "/default-profile.png",
+    });
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
   const handleSave = async () => {
-    // Aquí puedes integrar el guardado con Prisma mediante una API
+    
+    try {
+      const result = await updateUserData(user.id, formData);
+
+      if (result.success) {
+        setMessage("Updated profle successful! You can now log in.");
+      } else {
+        setMessage(result.error || "Update profile failed.");
+      }
+
+    } catch (error) {
+
+      console.error("Error submitting form:", error);
+      setMessage("Something went wrong. Please try again.");
+
+    }
+
+
     console.log("Guardando datos del usuario:", formData);
     alert("Datos actualizados correctamente.");
   };
 
   const handleImageUpload = async (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
 
-    // Subir la imagen a un servicio como Cloudinary
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "your_upload_preset");
-
-    const res = await fetch("https://api.cloudinary.com/v1_1/your_cloud_name/image/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await res.json();
-    setFormData((prev) => ({ ...prev, image: data.secure_url }));
-    alert("Imatge actualitzada.");
   };
 
   return (

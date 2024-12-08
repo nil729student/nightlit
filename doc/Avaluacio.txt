@@ -1,5 +1,5 @@
 Autentificació d'usuari
-- Regeneració de contrasenya per mail
+- Regeneració de contrasenya per mail 
 - Autentificació google
 - perfil d'usuari
     - foto del usuari
@@ -16,9 +16,9 @@ Cançons
 - Llistat de cançons per discoteca.
 
 Fer tres tipos de usuari( nou camp a la taula usuari ROL)
--  admin (nomes hi haura un admin)
+-  admin (nomes hi haura un admin) 
 -  propietari (modifica les cançons de la seva discoteca)
--  usuari normal 
+FET -  usuari normal 
 
 Extres
 Utilitats
