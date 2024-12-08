@@ -46,7 +46,29 @@ export default function StandardProfileForm({ user }) {
   };
 
   const handleImageUpload = async (event) => {
-
+    const file = event.target.files[0];
+    if (!file) return;
+  
+    const formData = new FormData();
+    formData.append('file', file);
+  
+    try {
+      const response = await fetch('/api/uploadImage', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error al pujar la imatge');
+      }
+  
+      const data = await response.json();
+      setFormData((prev) => ({ ...prev, image: data.imageUrl }));
+      alert('Imatge pujada correctament');
+    } catch (error) {
+      console.error('Error pujant la imatge:', error);
+      alert('Error al pujar la imatge');
+    }
   };
 
   return (
