@@ -2,7 +2,7 @@ import fs from 'fs';
 import prisma from '../prisma.js';
 
 // per executar a questa funcionalitat haurem de insertar la propietat "type": module al package.json llavors anar a la ruta: cd ./app/lib/clubsActions i execuatr node createClubs.js
-
+// Funció per carregar les dades a la base de dades del jon extret de la api: openstreetmap
 async function main() {
     try {
         const data = JSON.parse(fs.readFileSync('../../db/data.json', 'utf8'));
