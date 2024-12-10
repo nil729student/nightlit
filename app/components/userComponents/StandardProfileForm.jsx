@@ -20,7 +20,10 @@ export default function StandardProfileForm({ user }) {
 
   useEffect(() => {
     fetchUserData();
+    
   }, []);
+
+  console.log(formData)
 
   const handleSave = async () => {
     
@@ -48,10 +51,11 @@ export default function StandardProfileForm({ user }) {
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
-  
     const formData = new FormData();
     formData.append('file', file);
-  
+    formData.append('path', '/usersProfileImages');
+    console.log(formData)
+
     try {
       const response = await fetch('/api/uploadImage', {
         method: 'POST',
@@ -63,6 +67,7 @@ export default function StandardProfileForm({ user }) {
       }
   
       const data = await response.json();
+      console.log(data)
       setFormData((prev) => ({ ...prev, image: data.imageUrl }));
       alert('Imatge pujada correctament');
     } catch (error) {
@@ -77,7 +82,7 @@ export default function StandardProfileForm({ user }) {
       <div className="flex items-center space-x-6 mb-6">
         <div className="relative">
           <img
-            src={formData.image}
+            src={formData.image.replace('/public', '')}
             alt="Foto de perfil"
             className="w-28 h-28 rounded-full object-cover border-4 border-blue-500"
           />

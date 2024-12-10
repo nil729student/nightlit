@@ -6,10 +6,10 @@ export async function getClubData(ownerId) {
     if (!ownerId) throw new Error("Falta l'ID del propietari.");
 
     try {
-        console.log(ownerId)
         const club = await prisma.club.findMany({
             where: { ownerId: ownerId },
         });
+        console.log(club)
         return club;
     } catch (error) {
         console.error("Error carregant dades del club:", error);
@@ -20,7 +20,7 @@ export async function getClubData(ownerId) {
 
 export async function saveClubData(ownerId, clubid , data) {
     if (!ownerId) throw new Error("Falta l'ID del propietari.");
-
+    console.log(data)
     try {
         // Validar y sanitizar los datos
         const validFields = [

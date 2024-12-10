@@ -5,7 +5,10 @@ export const POST = async (req) => {
   try {
     // Obtenim les dades del formulari
     const formData = await req.formData();
+    console.log(formData)
     const file = formData.get('file');
+    const uploadPath = formData.get('path')
+    console.log(uploadPath)
 
     // Validacióp del format
     if (!file || typeof file === 'string') {
@@ -17,7 +20,8 @@ export const POST = async (req) => {
 
     // Obtenim les dades del fitxer
     const buffer = Buffer.from(await file.arrayBuffer());
-    const uploadDir = path.join(process.cwd(), 'public/uploads/usersProfileImages');
+    console.log('A quest es el directori', uploadPath)
+    const uploadDir = path.join('public/uploads', uploadPath);
 
     // Assegurar que la carpeta d'uploads existeix
     await fs.mkdir(uploadDir, { recursive: true });
@@ -26,7 +30,7 @@ export const POST = async (req) => {
     await fs.writeFile(filePath, buffer);
 
     // Retornem la URL del fitxerr
-    const fileUrl = `/uploads/usersProfileImages/${file.name}`;
+    const fileUrl = `/${uploadDir}/${file.name}`;
     return new Response(JSON.stringify({ imageUrl: fileUrl }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
