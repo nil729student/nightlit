@@ -46,8 +46,7 @@ export default function ClubForm() {
 
     loadClubData();
   }, [session]);
-  console.log(clubData)
-
+  
   if (status === "loading" || loading) {
     return <p>Carregant dades...</p>;
   }
@@ -161,7 +160,7 @@ export default function ClubForm() {
 
           />
           <img
-            src={clubData.banner.replace('/public', '')}
+            src={clubData.banner}
             alt="banner"
             className="w-28 h-28 rownded-mid object-cover border-4 border-blue-500"
           />

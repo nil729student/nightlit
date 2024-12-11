@@ -82,7 +82,7 @@ export default function StandardProfileForm({ user }) {
       <div className="flex items-center space-x-6 mb-6">
         <div className="relative">
           <img
-            src={formData.image.replace('/public', '')}
+            src={formData.image}
             alt="Foto de perfil"
             className="w-28 h-28 rounded-full object-cover border-4 border-blue-500"
           />

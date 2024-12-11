@@ -34,6 +34,8 @@ export async function registerUser({
                     email,
                     password: hashedPassword,
                     role,
+                    image: '/uploads/usersProfileImages/default.png'
+
                 },
             });
 
@@ -51,6 +53,7 @@ export async function registerUser({
                     email,
                     password: hashedPassword,
                     role,
+                    image: '/uploads/usersProfileImages/default.png',
                     clubsOwned: {
                         create: {
                             name: clubName,

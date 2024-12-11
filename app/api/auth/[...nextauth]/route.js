@@ -27,7 +27,13 @@ export const authOptions = {
                     throw new Error("Invalid credentials.");
                 }
 
-                return { id: user.id, name: user.name, email: user.email, role: user.role};
+                return { 
+                    id: user.id, 
+                    name: user.name, 
+                    email: user.email, 
+                    role: user.role, 
+                    image: user.image
+                };
             },
         }),
     ],
@@ -44,7 +50,8 @@ export const authOptions = {
             if (user) {
                 token.id = user.id;
                 token.email = user.email;
-                token.role = user.role
+                token.role = user.role;
+                token.image = user.image; 
             }
             return token;
         },
@@ -53,7 +60,8 @@ export const authOptions = {
             if (token) {
                 session.user.id = token.id;
                 session.user.email = token.email;
-                session.user.role = token.role
+                session.user.role = token.role;
+                session.user.image = token.image;
             }
             return session;
         },

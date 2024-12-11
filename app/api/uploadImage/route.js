@@ -31,7 +31,7 @@ export const POST = async (req) => {
 
     // Retornem la URL del fitxerr
     const fileUrl = `/${uploadDir}/${file.name}`;
-    return new Response(JSON.stringify({ imageUrl: fileUrl }), {
+    return new Response(JSON.stringify({ imageUrl: fileUrl.replace('/public', '') }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
