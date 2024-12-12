@@ -6,6 +6,7 @@ import FeatherIcon from 'feather-icons-react';
 import { generateDiscoMosaicBackground } from '../utils/ColorGenerator.js'
 import './Club.css';
 import { useRouter } from "next/navigation"
+import ClubDetails from "./ClubDetails.jsx"
 
 // Función para generar un color aleatorio
 /*
@@ -105,7 +106,7 @@ export default function Club({ clubData, pollClub, setPollClub }) {
                         <motion.h2 className="text-center">{clubData.website}</motion.h2>
                     </div>
                     <motion.div
-                            className=""
+                        className=""
                     >{clubData.addrCity}</motion.div>
                 </motion.div>
                 <div className="flex flex-col bg-black h-1/2 ml-2 mt-20 rounded-full  justify-center">
@@ -129,24 +130,9 @@ export default function Club({ clubData, pollClub, setPollClub }) {
 
             <AnimatePresence>
                 {selectedId && selectedId === clubData.id && (
-                    <motion.div
-                        layoutId={selectedId}
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 50 }}
-                        transition={{ duration: 0.2 }}
-                        className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-black bg-opacity-30"
-                    >
-                        <motion.h5>{clubData.name}</motion.h5>
-                        <motion.h2>{clubData.website}</motion.h2>
-                        <motion.button
-                            className="absolute top-4 right-4 m-4 p-4 text-white bg-black rounded-lg dark:bg-neutral-800/100 dark:text-neutral-100"
-                            onClick={() => setSelectedId(null)}
-                        >
-                            Close
-                        </motion.button>
-
-                    </motion.div>
+                    <ClubDetails
+                        onClose={() => setSelectedId(null)}
+                    />
                 )}
             </AnimatePresence>
         </div>

@@ -1,0 +1,22 @@
+.container {
+    animation: border-color-animation 3s linear infinite;
+  }
+  
+  @keyframes border-color-animation {
+    0% {
+      border-color: #ff0080;
+    }
+    25% {
+      border-color: #7700ff;
+    }
+    50% {
+      border-color: #00ffcc;
+    }
+    75% {
+      border-color: #ffcc00;
+    }
+    100% {
+      border-color: #ff0080;
+    }
+  }
+  
