@@ -2,7 +2,21 @@
 
 import prisma from "../prisma";
 
-export async function getClubData(ownerId) {
+export async function getClubData(clubId) {
+    if (!clubId) throw new Error("Falta l'ID del propietari.");
+    try {
+        const club = await prisma.club.findUnique({
+            where: { id: clubId },
+        });
+        console.log(club)
+        return club;
+    } catch (error) {
+        console.error("Error carregant dades del club:", error);
+        throw new Error("No s'han pogut carregar les dades del club.");
+    }
+}
+
+export async function getOwnerClubData(ownerId) {
     if (!ownerId) throw new Error("Falta l'ID del propietari.");
 
     try {

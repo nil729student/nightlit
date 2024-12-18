@@ -4,7 +4,8 @@
     "paths": {
       // Accessos directes
       "@/*": ["./*"],
-      "@/lib/*": ["lib/*"]
+      "@lib/*": ["./lib/*"],
+      "@api/*": ["./api/*"]
     }
   }
 }

@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { getClubData, saveClubData } from "../lib/clubsActions/clubActions";
+import { getOwnerClubData, saveClubData } from "../lib/clubsActions/clubActions";
 
 export default function ClubForm() {
 
@@ -30,7 +30,7 @@ export default function ClubForm() {
       if (!session || session.user.role !== "OWNER") return;
 
       try {
-        const data = await getClubData(session.user.id);
+        const data = await getOwnerClubData(session.user.id);
         const aClub = data[0] // De moment el usuari owner pot tenir una discoteca.
         const sanitizedData = Object.fromEntries(
           Object.entries(aClub || {}).map(([key, value]) => [key, value ?? ""])

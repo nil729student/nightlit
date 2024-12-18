@@ -20,6 +20,7 @@ model User {
   votes        Vote[]
   songVotes    SongVote[]
   clubsOwned   Club[]     @relation("OwnerClubs")
+  passwordResetTokens PasswordResetToken[]
 }
 
 model Club {
@@ -31,6 +32,7 @@ model Club {
   addrStreet      String?
   addrHouseNumber String?
   addrpostcode    String?
+  region          String?
   latitude        Float
   longitude       Float
   website         String?
@@ -61,6 +63,7 @@ model Song {
   id        Int        @id @default(autoincrement())
   title     String
   artist    String
+  url       String
   playlists Playlist[]
   songVotes SongVote[]
 }
@@ -87,4 +90,12 @@ enum Role {
   STANDARD
   OWNER
   ADMIN
+}
+
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  expiresAt DateTime
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

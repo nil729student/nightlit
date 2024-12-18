@@ -3,8 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { registerUser } from "../../lib/registerUser";
+import { useRouter } from "next/navigation";
 
 export default function StandardRegisterPage() {
+    const router = useRouter();
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -27,6 +29,7 @@ export default function StandardRegisterPage() {
 
             if (result.success) {
                 setMessage("Registration successful! You can now log in.");
+                router.push("/login");
             } else {
                 setMessage(result.error || "Registration failed.");
             }

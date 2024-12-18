@@ -1,20 +1,70 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
 import styles from "./ClubDetails.module.css";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { getClubData } from "../lib/clubsActions/clubActions";
+import FeatherIcon from 'feather-icons-react';
 
-export default function ClubDetails({ onClose }) {
+export default function ClubDetails({ clubId, onClose }) {
+  console.log(clubId)
   const [clubData, setClubData] = useState({
-    id: "1",
-    name: "Disco Night Club",
-    website: "https://disconightclub.com",
-    addrCity: "Barcelona",
-    description: "El millor lloc per passar la nit.",
-    bannerUrl: "/uploads/clubBaner/chill_11zon.jpg",
+    data: null,
+    loading: true,
+    error: null,
   });
+
+  const fetchData = async () => {
+    setClubData({ data: null, loading: true, error: null });
+    try {
+      const data = await getClubData(clubId);
+      setClubData({ data, loading: false, error: null });
+    } catch {
+      setClubData({ data: null, loading: false, error: "Error carregant dades." });
+    }
+  };
+
+  useEffect(() => {
+
+
+    fetchData();
+  }, [clubId]);
+
+  const { data, loading, error } = clubData;
+  console.log(clubData)
+  if (loading) {
+    return (
+      <motion.div
+        className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-black bg-opacity-80"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="text-white">Carregant dades...</div>
+      </motion.div>
+    );
+  }
+
+  if (error) {
+    return (
+      <motion.div
+        className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-black bg-opacity-80"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="text-red-500">{error}</div>
+      </motion.div>
+    );
+  }
+
+  if (!data) {
+    return null; // Si no hi ha dades disponibles, no es renderitza res.
+  }
 
   return (
     <motion.div
-      layoutId={clubData.id}
+      layoutId={data.id}
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 50 }}
@@ -22,30 +72,47 @@ export default function ClubDetails({ onClose }) {
       className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-black bg-opacity-80"
     >
       <motion.div
-        className={`relative flex flex-col md:flex-row items-stretch w-1/2 h-4/5 p-6 bg-black rounded-lg shadow-lg border-4 ${styles.container}`}
+        className={`relative flex flex-col md:flex-row items-stretch w-11/12 max-w-4xl h-4/5 p-6 bg-black rounded-lg shadow-lg border-4 ${styles.container}`}
         style={{ borderRadius: "16px" }}
       >
-        <div className="flex flex-col bg-gray- justify-between p-4 space-y-4 w-full md:w-1/2">
+        <div className="flex flex-col justify-between p-4 space-y-4 w-full md:w-1/2">
           <div>
-            <h1 className="text-3xl font-bold">{clubData.name}</h1>
-            <p className="mt-2 ">{clubData.description}</p>
+            <h1 className="text-3xl font-bold text-white">{data.name}</h1>
             <a
-              href={clubData.website}
+              href={data.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-block text-blue-500 hover:underline"
+              className="mt-2 inline-block text-blue-400 hover:underline"
             >
-              {clubData.website}
+              {data.website}
             </a>
-            <p className="mt-2">
-              <strong>Ubicació:</strong> {clubData.addrCity}
+            <p className="mt-2 text-gray-300">{data.information}</p>
+
+            <p className="mt-2 text-gray-300">
+              <strong>Ciutat:</strong> {data.addrCity}
             </p>
+            <p className="mt-2 text-gray-300">
+              <strong>Adreça:</strong> {data.addrStreet}, {data.addrHouseNumber}, {data.addrpostcode}
+            </p>
+            <span className="flex flex-row mt-3 space-x-4">
+
+              <a href={`https://www.instagram.com/${data.instagram}`}>
+              <FeatherIcon icon="instagram" className="" />
+              </a>
+              <a href={`https://www.instagram.com/${data.facebook}`}>
+              <FeatherIcon icon="facebook" className="" />
+              </a>
+              <a href={`https://www.instagram.com/${data.instagram}`}>
+              <FeatherIcon icon="twitter" className="" />
+              </a>
+            </span>
+
           </div>
         </div>
 
         <div
           className="flex-shrink-0 w-full md:w-1/2 h-64 md:h-auto bg-cover bg-center rounded-r-lg"
-          style={{ backgroundImage: `url(${clubData.bannerUrl})` }}
+          style={{ backgroundImage: `url(${data.banner})` }}
         />
 
         <motion.button

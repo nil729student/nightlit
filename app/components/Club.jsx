@@ -130,7 +130,8 @@ export default function Club({ clubData, pollClub, setPollClub }) {
 
             <AnimatePresence>
                 {selectedId && selectedId === clubData.id && (
-                    <ClubDetails
+                    <ClubDetails 
+                        clubId={ clubData.id }
                         onClose={() => setSelectedId(null)}
                     />
                 )}

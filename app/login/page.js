@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -68,13 +69,20 @@ export default function LoginPage() {
                         className="w-full px-3 py-2 border rounded-lg"
                     />
                 </div>
+                <span className="underline">
+                    <Link
+                        href="/forgot-password"
+                    >
+                        Forgot password?
+                    </Link>
+                </span>
                 <button
                     type="submit"
                     className="w-full bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600"
                 >
                     Login
                 </button>
-                
+
             </form>
         </div>
     );

@@ -2,8 +2,8 @@ Autentificació d'usuari
 - Regeneració de contrasenya per mail 
 - Autentificació google
 - perfil d'usuari
-    - foto del usuari
-    - Dades del usuari
+FET    - foto del usuari (falta actualizar la sessió)
+FET    - Dades del usuari
     - Sistema de votacions no pots votar negatiu pro si que resti
 
 - l'usuari pugi fer votacions
@@ -17,7 +17,7 @@ Cançons
 
 Fer tres tipos de usuari( nou camp a la taula usuari ROL)
 -  admin (nomes hi haura un admin) 
--  propietari (modifica les cançons de la seva discoteca)
+FET -  propietari (modifica les cançons de la seva discoteca)
 FET -  usuari normal 
 
 Extres
