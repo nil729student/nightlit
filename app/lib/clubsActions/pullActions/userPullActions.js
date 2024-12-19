@@ -1,15 +1,15 @@
 "use server"
 import prisma from "../../prisma"
 
-export async function addPullUp(idClub) {
+export async function addPullUp(idClub, userId) {
     try {
 
         const vote = await prisma.vote.create({
             data: {
-                userId: 1,
+                userId: userId,
                 clubId: idClub,
                 vote: 1,
-                week: new Date() // datateime
+                week: new Date()
             }
         })
         return vote;
@@ -19,15 +19,15 @@ export async function addPullUp(idClub) {
     }
 }
 
-export async function addPullDown(idClub) {
+export async function addPullDown(idClub, userId) {
     try {
 
         const vote = await prisma.vote.create({
             data: {
-                userId: 1,
+                userId: userId,
                 clubId: idClub,
                 vote: -1,
-                week: new Date() // datateime
+                week: new Date()
             }
         })
         return vote;

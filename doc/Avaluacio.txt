@@ -1,13 +1,13 @@
 Autentificació d'usuari
-- Regeneració de contrasenya per mail 
+FET - Regeneració de contrasenya per mail 
 - Autentificació google
-- perfil d'usuari
+FET- perfil d'usuari
 FET    - foto del usuari (falta actualizar la sessió)
 FET    - Dades del usuari
-    - Sistema de votacions no pots votar negatiu pro si que resti
+FET    - Sistema de votacions no pots votar negatiu pro si que resti
 
-- l'usuari pugi fer votacions
-    . validació limitada per temps
+FET - l'usuari pugi fer votacions
+FET    . validació limitada per temps
 
 - Enviar mail mostrar ranking de discoteca i de cançons setmanal ment
 - Cada semana s'esborrin les votacion de totes les dicoteques
