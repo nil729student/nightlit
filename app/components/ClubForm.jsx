@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { getOwnerClubData, saveClubData } from "../lib/clubsActions/clubActions";
+import SongForm from "./SongForm";
 
 export default function ClubForm() {
 
@@ -227,6 +228,7 @@ export default function ClubForm() {
       >
         Guardar canvis
       </button>
+      <SongForm clubId={clubData.id} />
     </div>
   );
 }

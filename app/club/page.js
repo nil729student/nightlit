@@ -1,9 +1,9 @@
 "use client";
 
 import ClubForm from "../components/ClubForm";
+import SongForm from "../components/SongForm";
+
 export default function ClubPage() {
-
-
   return (
     <div className="min-h-screen bg-gray-200 py-10">
       <div className="max-w-4xl text-black mx-auto bg-white rounded-lg shadow-md p-8">
