@@ -2,12 +2,19 @@ import styles from "./ClubDetails.module.css";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { getClubData } from "../lib/clubsActions/clubActions";
+import { getSongs } from "../lib/clubsActions/songActions";
 import FeatherIcon from 'feather-icons-react';
 
 export default function ClubDetails({ clubId, onClose }) {
-  console.log(clubId)
+
   const [clubData, setClubData] = useState({
     data: null,
+    loading: true,
+    error: null,
+  });
+
+  const [songsData, setSongsData] = useState({
+    data: [],
     loading: true,
     error: null,
   });
@@ -22,10 +29,19 @@ export default function ClubDetails({ clubId, onClose }) {
     }
   };
 
+  const fetchSongs = async () => {
+    setSongsData({ data: [], loading: true, error: null });
+    try {
+      const data = await getSongs(clubId);
+      setSongsData({ data, loading: false, error: null });
+    } catch {
+      setSongsData({ data: [], loading: false, error: "Error carregant cançons." });
+    }
+  };
+
   useEffect(() => {
-
-
     fetchData();
+    fetchSongs();
   }, [clubId]);
 
   const { data, loading, error } = clubData;
@@ -76,37 +92,60 @@ export default function ClubDetails({ clubId, onClose }) {
         style={{ borderRadius: "16px" }}
       >
         <div className="flex flex-col justify-between p-4 space-y-4 w-full md:w-1/2">
-          <div>
-            <h1 className="text-3xl font-bold text-white">{data.name}</h1>
-            <a
-              href={data.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-block text-blue-400 hover:underline"
-            >
-              {data.website}
-            </a>
-            <p className="mt-2 text-gray-300">{data.information}</p>
+          <h1 className="text-3xl font-bold text-white">{data.name}</h1>
+          <a
+            href={data.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-block text-blue-400 hover:underline"
+          >
+            {data.website}
+          </a>
+          <p className="mt-2 text-gray-300">{data.information}</p>
 
-            <p className="mt-2 text-gray-300">
-              <strong>Ciutat:</strong> {data.addrCity}
-            </p>
-            <p className="mt-2 text-gray-300">
-              <strong>Adreça:</strong> {data.addrStreet}, {data.addrHouseNumber}, {data.addrpostcode}
-            </p>
-            <span className="flex flex-row mt-3 space-x-4">
+          <p className="mt-2 text-gray-300">
+            <strong>Ciutat:</strong> {data.addrCity}
+          </p>
+          <p className="mt-2 text-gray-300">
+            <strong>Adreça:</strong> {data.addrStreet}, {data.addrHouseNumber}, {data.addrpostcode}
+          </p>
+          <span className="flex flex-row mt-3 space-x-4">
 
-              <a href={`https://www.instagram.com/${data.instagram}`}>
+            <a href={`https://www.instagram.com/${data.instagram}`}>
               <FeatherIcon icon="instagram" className="" />
-              </a>
-              <a href={`https://www.instagram.com/${data.facebook}`}>
+            </a>
+            <a href={`https://www.instagram.com/${data.facebook}`}>
               <FeatherIcon icon="facebook" className="" />
-              </a>
-              <a href={`https://www.instagram.com/${data.instagram}`}>
+            </a>
+            <a href={`https://www.instagram.com/${data.instagram}`}>
               <FeatherIcon icon="twitter" className="" />
-              </a>
-            </span>
-
+            </a>
+          </span>
+          {/* Mostrar la playlist */}
+          <div className="flex flex-col items-center h-60 p-4">
+          {/* Mostrar la playlist */
+            songsData.data && (
+              <div className="flex flex-col items-center h-60 p-4">
+                <h2 className="text-2xl font-bold mb-4">Playlist</h2>
+                <div className="space-y-2 h-auto overflow-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-slate-700 scrollbar-track-black  overflow-y-scroll">
+                  <ul className="mx-4">
+                    {songsData.data.map((song) => (
+                      <li key={song.id}>
+                        <a
+                          href={song.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          {song.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )
+          }
           </div>
         </div>
 
