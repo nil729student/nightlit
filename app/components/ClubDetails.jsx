@@ -6,7 +6,6 @@ import { getSongs } from "../lib/clubsActions/songActions";
 import FeatherIcon from 'feather-icons-react';
 
 export default function ClubDetails({ clubId, onClose }) {
-
   const [clubData, setClubData] = useState({
     data: null,
     loading: true,
@@ -45,7 +44,7 @@ export default function ClubDetails({ clubId, onClose }) {
   }, [clubId]);
 
   const { data, loading, error } = clubData;
-  console.log(clubData)
+
   if (loading) {
     return (
       <motion.div
@@ -110,7 +109,6 @@ export default function ClubDetails({ clubId, onClose }) {
             <strong>Adreça:</strong> {data.addrStreet}, {data.addrHouseNumber}, {data.addrpostcode}
           </p>
           <span className="flex flex-row mt-3 space-x-4">
-
             <a href={`https://www.instagram.com/${data.instagram}`}>
               <FeatherIcon icon="instagram" className="" />
             </a>
@@ -123,11 +121,10 @@ export default function ClubDetails({ clubId, onClose }) {
           </span>
           {/* Mostrar la playlist */}
           <div className="flex flex-col items-center h-60 p-4">
-          {/* Mostrar la playlist */
-            songsData.data && (
-              <div className="flex flex-col items-center h-60 p-4">
+            {songsData.data.length > 0 && (
+              <>
                 <h2 className="text-2xl font-bold mb-4">Playlist</h2>
-                <div className="space-y-2 h-auto overflow-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-slate-700 scrollbar-track-black  overflow-y-scroll">
+                <div className="space-y-2 h-auto overflow-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-slate-700 scrollbar-track-black overflow-y-scroll">
                   <ul className="mx-4">
                     {songsData.data.map((song) => (
                       <li key={song.id}>
@@ -143,9 +140,9 @@ export default function ClubDetails({ clubId, onClose }) {
                     ))}
                   </ul>
                 </div>
-              </div>
-            )
-          }
+              </>
+
+            )}
           </div>
         </div>
 

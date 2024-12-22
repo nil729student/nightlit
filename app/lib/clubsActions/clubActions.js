@@ -69,3 +69,16 @@ export async function saveClubData(ownerId, clubid , data) {
         throw new Error("No s'han pogut guardar les dades del club.");
     }
 }
+
+export async function deleteClub(clubId) {
+    try {
+      await prisma.club.delete({
+        where: {
+          id: clubId,
+        },
+      });
+    } catch (error) {
+      console.error("Error deleting club:", error);
+      throw new Error("Error deleting club");
+    }
+  }
