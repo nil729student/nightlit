@@ -2,11 +2,10 @@
 
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { getOwnerClubData, saveClubData } from "../lib/clubsActions/clubActions";
+import { getClubData, getOwnerClubData, saveClubData } from "../lib/clubsActions/clubActions";
 import SongForm from "./SongForm";
 
-export default function ClubForm() {
-
+export default function ClubForm({selectedClub}) {
   const { data: session, status } = useSession();
   const [clubData, setClubData] = useState({
     name: "",
@@ -26,26 +25,46 @@ export default function ClubForm() {
 
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function loadClubData() {
-      if (!session || session.user.role !== "OWNER") return;
-
-      try {
-        const data = await getOwnerClubData(session.user.id);
-        const aClub = data[0] // De moment el usuari owner pot tenir una discoteca.
-        const sanitizedData = Object.fromEntries(
-          Object.entries(aClub || {}).map(([key, value]) => [key, value ?? ""])
-        );
-
-        setClubData(sanitizedData);
-      } catch (error) {
-        console.error("Error carregant les dades del club:", error);
-      } finally {
-        setLoading(false);
-      }
+  const loadClubData = async () => {
+    if (!session || session.user.role !== "OWNER") return;
+    try {
+      const data = await getOwnerClubData(session.user.id);
+      const aClub = data[0] // De moment el usuari owner pot tenir una discoteca.
+      const sanitizedData = sanitized(aClub);
+      setClubData(sanitizedData);
+    } catch (error) {
+      console.error("Error carregant les dades del club:", error);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    loadClubData();
+  const loadClubSelectData = async () => {
+    if (!session || session.user.role !== "OWNER") return;
+    try {
+      console.log(clubData)
+      const data = await getClubData(selectedClub.id);
+      console.log(data)
+      const sanitizedData = sanitized(data);
+      setClubData(sanitizedData);
+    } catch (error) {
+      console.error("Error carregant les dades del club:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const sanitized = (aClub) => Object.fromEntries(
+    Object.entries(aClub || {}).map(([key, value]) => [key, value ?? ""])
+  );
+
+  useEffect(() => {
+    if (selectedClub !== undefined) {
+      loadClubSelectData();
+    }else {
+      console.log(selectedClub)
+      loadClubData();
+    }
   }, [session]);
   
   if (status === "loading" || loading) {
@@ -160,11 +179,13 @@ export default function ClubForm() {
             className="w-full p-3 border rounded-lg"
 
           />
-          <img
-            src={clubData.banner}
-            alt="banner"
-            className="w-28 h-28 rownded-mid object-cover border-4 border-blue-500"
-          />
+          {clubData.banner && (
+            <img
+              src={clubData.banner}
+              alt="banner"
+              className="w-28 h-28 rownded-mid object-cover border-4 border-blue-500"
+            />
+          )}
         </div>
 
         <div>

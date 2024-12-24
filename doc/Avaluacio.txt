@@ -13,10 +13,10 @@ FET    . validació limitada per temps
 - Cada semana s'esborrin les votacion de totes les dicoteques
 
 Cançons
-- Llistat de cançons per discoteca.
+FET - Llistat de cançons per discoteca.
 
 Fer tres tipos de usuari( nou camp a la taula usuari ROL)
--  admin (nomes hi haura un admin) 
+FET -  admin (nomes hi haura un admin) 
 FET -  propietari (modifica les cançons de la seva discoteca)
 FET -  usuari normal 
 

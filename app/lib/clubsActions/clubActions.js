@@ -32,7 +32,7 @@ export async function getOwnerClubData(ownerId) {
 }
 
 
-export async function saveClubData(ownerId, clubid , data) {
+export async function saveClubData(ownerId, clubid, data) {
     if (!ownerId) throw new Error("Falta l'ID del propietari.");
     console.log(data)
     try {
@@ -71,14 +71,58 @@ export async function saveClubData(ownerId, clubid , data) {
 }
 
 export async function deleteClub(clubId) {
-    try {
-      await prisma.club.delete({
-        where: {
-          id: clubId,
-        },
-      });
-    } catch (error) {
-      console.error("Error deleting club:", error);
-      throw new Error("Error deleting club");
+    if (!clubId) {
+        throw new Error("El ID del club no puede ser null o undefined.");
     }
-  }
+
+    try {
+        console.log("Deleting club with ID:", clubId);
+
+        await prisma.$transaction(async (tx) => {
+            // Cambiar el rol del usuario a estándar
+            const club = await tx.club.findUnique({
+                where: { id: clubId },
+                select: { ownerId: true },
+            });
+
+            if (club && club.ownerId) {
+                await tx.user.update({
+                    where: {
+                        id: club.ownerId,
+                    },
+                    data: {
+                        role: "STANDARD",
+                    },
+                });
+            }
+
+            // Eliminar todas las playlists asociadas al club
+            await tx.playlist.deleteMany({
+                where: {
+                    clubId: clubId,
+                },
+            });
+
+            // Eliminar el club
+            await tx.club.delete({
+                where: {
+                    id: clubId,
+                },
+            });
+
+            // Verificar y eliminar canciones que no estén asociadas a ninguna playlist
+            await tx.song.deleteMany({
+                where: {
+                    playlists: {
+                        none: {}, // Canciones sin ninguna playlist asociada
+                    },
+                },
+            });
+        });
+
+        console.log("Club deleted successfully!");
+    } catch (error) {
+        console.error("Error deleting club:", error);
+        throw new Error("Error deleting club");
+    }
+}

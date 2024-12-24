@@ -55,8 +55,8 @@ model Vote {
   clubId Int
   vote   Int
   week   DateTime
-  club   Club     @relation(fields: [clubId], references: [id])
-  user   User     @relation(fields: [userId], references: [id])
+  club   Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Song {
@@ -72,30 +72,31 @@ model Playlist {
   id     Int  @id @default(autoincrement())
   clubId Int
   songId Int
-  club   Club @relation(fields: [clubId], references: [id])
-  song   Song @relation(fields: [songId], references: [id])
+  club   Club   @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  song   Song   @relation(fields: [songId], references: [id], onDelete: Cascade)
 }
 
 model SongVote {
-  id     Int      @id @default(autoincrement())
+  id     Int    @id @default(autoincrement())
   userId Int
   songId Int
   vote   Int
   week   DateTime
-  song   Song     @relation(fields: [songId], references: [id])
-  user   User     @relation(fields: [userId], references: [id])
+  song   Song   @relation(fields: [songId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Role {
   STANDARD
-  OWNER
   ADMIN
+  OWNER
 }
 
 model PasswordResetToken {
   id        Int      @id @default(autoincrement())
   token     String   @unique
-  expiresAt DateTime
   userId    Int
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  expiresAt DateTime
 }

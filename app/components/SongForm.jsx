@@ -118,7 +118,7 @@ export default function SongForm({ clubId }) {
                 {editingSongId ? "Actualiza la canço" : "Gurada la canço"}
             </button>
 
-            <h2 className="text-2xl font-bold mt-8 mb-4">Listado de canciones</h2>
+            <h2 className="text-2xl font-bold mt-8 mb-4">Playlist</h2>
             <ul>
                 {songs.map(song => (
                     <li key={song.id} className="flex justify-between items-center mb-4">
