@@ -1,8 +1,6 @@
-import {listClubs, listClubsByCity} from '../lib/clubsActions/listClubs.js';
+import {listClubs, listClubsByCityPullOrder} from '../lib/clubsActions/listClubs.js';
 import { addPullUp, getClubVote } from "../lib/clubsActions/pullActions/userPullActions.js";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import FeatherIcon from 'feather-icons-react';
 import { SearchBar } from './SearchBar.jsx';
 import Club from './Club.jsx';
 
@@ -13,7 +11,7 @@ export default function ClubsList() {
 
   async function fetchClubs() {
     const pollClub = await getClubVote();
-    const clubs = await listClubsByCity();
+    const clubs = await listClubsByCityPullOrder();
 
     setPollClub(pollClub.reduce((acc, vote) => {
       acc[vote.clubId] = (acc[vote.clubId] || 0) + vote.vote;

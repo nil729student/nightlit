@@ -15,5 +15,10 @@ export async function middleware(req) {
 }
 
 export const config = {
-    matcher: ["/dashboard/:path*", "/protected/:path*"], // Definim les rutes proteguides
+    // Definim les rutes proteguides
+    matcher: [
+        "/admin/:path*", 
+        "/profile/:path*", 
+        "/club/:path*"
+    ], 
 };

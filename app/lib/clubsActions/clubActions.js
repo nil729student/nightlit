@@ -126,3 +126,29 @@ export async function deleteClub(clubId) {
         throw new Error("Error deleting club");
     }
 }
+
+
+export async function getTop5Clubs() {
+    try {
+        const clubs = await prisma.club.findMany({
+            include: {
+                _count: {
+                    select: { votes: true },
+                },
+            },
+            orderBy: {
+                votes: {
+                    _count: 'desc',
+                },
+            },
+            take: 5,
+        });
+        return clubs.map(club => ({
+            ...club,
+            votes: club._count.votes,
+        }));
+    } catch (error) {
+        console.error('An error occurred while fetching top 5 clubs:', error);
+        throw error;
+    }
+}

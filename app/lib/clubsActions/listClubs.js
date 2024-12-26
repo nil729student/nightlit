@@ -26,3 +26,32 @@ export async function listClubsByCity() {
         throw error;
     }
 }
+
+
+export async function listClubsByCityPullOrder () {
+    try {
+        const clubs = await prisma.club.findMany({
+            where: {
+                addrCity: { not: null },
+            },
+            include: {
+                _count: {
+                    select: { votes: true },
+                },
+            },
+            orderBy: {
+                votes: {
+                    _count: 'desc',
+                },
+            },
+        });
+        console.log('Clubs', clubs);
+        return clubs.map(club => ({
+            ...club,
+            votes: club._count.votes,
+        }));
+    } catch (error) {
+        console.error("list clubs by city Error", error);
+        throw error;
+    }
+}
