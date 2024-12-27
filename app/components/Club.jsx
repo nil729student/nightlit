@@ -1,3 +1,4 @@
+"use client"
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { addPullDown, addPullUp } from "../lib/clubsActions/pullActions/userPullActions.js";
@@ -13,7 +14,7 @@ export default function Club({ clubData, pollClub, setPollClub }) {
     const [selectedId, setSelectedId] = useState(null);
     const [disabledPullClubs, setDisabledPullClubs] = useState({});
     const router = useRouter();
-    const cooldownPeriod = 5 * 60 * 1000; // 5 minuts
+    const cooldownPull = 5 * 60 * 1000; // 5 minuts
 
     useEffect(() => {
         if (!session || !session.user) return;
@@ -22,7 +23,7 @@ export default function Club({ clubData, pollClub, setPollClub }) {
         const lastVoteTime = localStorage.getItem(`lastVoteTime-${session.user.id}-${clubData.id}`);
         if (lastVoteTime) {
             const timeSinceLastVote = Date.now() - new Date(lastVoteTime).getTime();
-            if (timeSinceLastVote < cooldownPeriod) {
+            if (timeSinceLastVote < cooldownPull) {
                 setDisabledPullClubs(prev => ({
                     ...prev,
                     [clubData.id]: true,
@@ -32,7 +33,7 @@ export default function Club({ clubData, pollClub, setPollClub }) {
                         ...prev,
                         [clubData.id]: false,
                     }));
-                }, cooldownPeriod - timeSinceLastVote);
+                }, cooldownPull - timeSinceLastVote);
                 return () => clearTimeout(timeout);
             }
         }
@@ -69,7 +70,7 @@ export default function Club({ clubData, pollClub, setPollClub }) {
                     ...prev,
                     [idClub]: false,
                 }));
-            }, cooldownPeriod);
+            }, cooldownPull);
         }
     };
 

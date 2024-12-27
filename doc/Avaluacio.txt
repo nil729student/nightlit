@@ -9,8 +9,8 @@ FET    - Sistema de votacions no pots votar negatiu pro si que resti
 FET - l'usuari pugi fer votacions
 FET    . validació limitada per temps
 
-- Enviar mail mostrar ranking de discoteca i de cançons setmanal ment
-- Cada semana s'esborrin les votacion de totes les dicoteques
+Falta provar - Enviar mail mostrar ranking de discoteca i de cançons setmanal ment
+Falta provar - Cada semana s'esborrin les votacion de totes les dicoteques
 
 Cançons
 FET - Llistat de cançons per discoteca.

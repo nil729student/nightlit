@@ -1,3 +1,4 @@
+"use client"
 import {listClubs, listClubsByCityPullOrder} from '../lib/clubsActions/listClubs.js';
 import { addPullUp, getClubVote } from "../lib/clubsActions/pullActions/userPullActions.js";
 import { useEffect, useState } from "react";

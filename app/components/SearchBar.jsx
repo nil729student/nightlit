@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
-import Select from 'react-select';
+"use client"
+import React, { useEffect, useState } from "react";
+import dynamic from 'next/dynamic';
 import { useFilteredClubs } from "../hooks/useFilteredClubs";
+import { FaSearch } from "react-icons/fa";
+const Select = dynamic(() => import('react-select'), { ssr: false }); // Importacio dinamica de react-select per evitar error al SSR
 
 export function SearchBar({ clubs, setFilteredClubs }) {
   const {
@@ -11,35 +14,65 @@ export function SearchBar({ clubs, setFilteredClubs }) {
     filteredClubs,
   } = useFilteredClubs(clubs);
 
-  // Opcions de busqueda per a la ciutat del club
-  const optionsCity = clubs.reduce((acc, club) => {
-    if (club.addrCity !== null && !acc.some(option => option.value === club.addrCity)) {
-      acc.push({ value: club.addrCity, label: club.addrCity });
-    }
-    return acc;
-  }, []);
+  // Opciones de búsqueda para la ciudad del club
+  const initialOptionsCity = [{ value: "", label: "All Cities" }];
+  const [optionsCity, setOptionsCity] = useState(initialOptionsCity);
+  const [selectedCity, setSelectedCity] = useState(initialOptionsCity[0]);
 
-  optionsCity.unshift({ value: "", label: "All Cities" });
+  useEffect(() => {
+    const options = clubs.reduce((acc, club) => {
+      if (club.addrCity && !acc.some(option => option.value === club.addrCity)) {
+        acc.push({ value: club.addrCity, label: club.addrCity });
+      }
+      return acc;
+    }, []);
+
+    options.unshift({ value: "", label: "All Cities" });
+    setOptionsCity(options);
+  }, [clubs]);
 
   useEffect(() => {
     setFilteredClubs(filteredClubs);
   }, [filteredClubs, setFilteredClubs]);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full mb-8 pl-52 pr-52 md:flex-row">
-      <input
-        type="text"
-        placeholder="Search Club"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full p-2 m-2 text-lg text-center border-2 text-black border-black rounded-lg md:w-3/5 md:text-2xl"
-      />
+    <div className="flex flex-col items-center justify-center w-full mb-8 px-4 md:px-20 ">
+      {/* Search Input */}
+      <div className="relative w-full md:w-3/5 mb-3">
+        <input
+          type="text"
+          placeholder="Search Club"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full p-3 text-lg text-black rounded-lg shadow-lg focus:ring-4 focus:ring-purple-500 focus:outline-none"
+          style={{ backgroundColor: "#fff", border: "2px solid #6f42c1" }}
+        />
+        <FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-purple-500" />
+      </div>
 
+      {/* City Select */}
       <Select
-        className="w-full p-2 m-2 text-lg text-center border-2 text-black border-black rounded-lg md:w-2/5 md:text-2xl"
+        className="w-full mt-4 md:w-2/5 md:mt-0 md:ml-4 text-black"
         options={optionsCity}
-        onChange={(selectedOption) => setSearchTermCity(selectedOption ? selectedOption.value : "")}
+        value={selectedCity}
+        onChange={(selectedOption) => {
+          setSelectedCity(selectedOption);
+          setSearchTermCity(selectedOption ? selectedOption.value : "");
+        }}
         isSearchable
+        styles={{
+          control: (base) => ({
+            ...base,
+            backgroundColor: "#fff",
+            borderColor: "#6f42c1",
+            borderWidth: "2px",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+          }),
+          menu: (base) => ({
+            ...base,
+            zIndex: 9999,
+          }),
+        }}
       />
     </div>
   );

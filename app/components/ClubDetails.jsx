@@ -1,3 +1,4 @@
+"use client"
 import styles from "./ClubDetails.module.css";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";

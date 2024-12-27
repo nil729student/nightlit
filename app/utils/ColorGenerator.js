@@ -1,3 +1,4 @@
+
 const getRandomNeonColor = () => {
   const colors = ['#FF00FF', '#00FFFF', '#00FF00', '#FFFF00', '#FF0000', '#0000FF'];
   return colors[Math.floor(Math.random() * colors.length)];
