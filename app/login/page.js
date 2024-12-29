@@ -32,6 +32,10 @@ export default function LoginPage() {
         }
     };
 
+    const handleGoogleSignIn = async () => {
+        await signIn("google", { callbackUrl: "/" });
+    };
+
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-purple-500 to-blue-500 text-white">
             <h1 className="text-4xl font-bold mb-3">Welcome Back!</h1>
@@ -81,6 +85,12 @@ export default function LoginPage() {
                     className="w-full bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600"
                 >
                     Login
+                </button>
+                <button
+                    onClick={handleGoogleSignIn}
+                    className="w-full bg-white text-purple-500 font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 mt-2"
+                >
+                    Register with Google
                 </button>
 
             </form>

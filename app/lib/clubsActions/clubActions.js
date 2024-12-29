@@ -1,6 +1,6 @@
 "use server"
 
-import prisma from "../prisma";
+import prisma from "../prisma.js";
 
 export async function getClubData(clubId) {
     if (!clubId) throw new Error("Falta l'ID del propietari.");

@@ -38,3 +38,19 @@ export async function updateUserData(userId, data) {
         return null;
     }
 }
+
+// get all emails
+export async function getAllEmails() {
+    try {
+        const emails = await prisma.user.findMany({
+            select: {
+                email: true,
+            },
+        });
+
+        return emails.map((user) => user.email);
+    } catch (error) {
+        console.error("Error obtenint emails:", error.message);
+        return null;
+    }
+}

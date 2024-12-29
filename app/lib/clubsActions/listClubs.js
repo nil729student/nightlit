@@ -45,7 +45,6 @@ export async function listClubsByCityPullOrder () {
                 },
             },
         });
-        console.log('Clubs', clubs);
         return clubs.map(club => ({
             ...club,
             votes: club._count.votes,

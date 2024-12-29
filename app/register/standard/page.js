@@ -2,17 +2,21 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 import { registerUser } from "../../lib/registerUser";
 import { useRouter } from "next/navigation";
+import FeatherIcon from "feather-icons-react";
 
 export default function StandardRegisterPage() {
     const router = useRouter();
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
         role: "STANDARD"
     });
+
     const [message, setMessage] = useState("");
 
     const handleChange = (e) => {
@@ -38,6 +42,12 @@ export default function StandardRegisterPage() {
             setMessage("Something went wrong. Please try again.");
         }
     };
+
+    const handleGoogleSignIn = async () => {
+        await signIn("google", { callbackUrl: "/" });
+    };
+
+
 
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-purple-500 to-pink-500 text-white">
@@ -86,6 +96,13 @@ export default function StandardRegisterPage() {
                     className="w-full bg-white text-pink-500 font-semibold py-2 px-4 rounded-lg hover:bg-gray-200"
                 >
                     Register
+                </button>
+                {/* google button for register */}
+                <button
+                    onClick={handleGoogleSignIn}
+                    className="w-full bg-white text-pink-500 font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 mt-2"
+                >
+                    Register with Google
                 </button>
                 <div className="mt-4 flex justify-between">
                     <Link href="/register/owner" className="text-sm hover:underline">

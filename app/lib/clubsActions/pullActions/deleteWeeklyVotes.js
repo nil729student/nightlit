@@ -1,14 +1,11 @@
 "use server"
-import prisma from '../prisma.js';
+import prisma from '../../prisma.js';
 
 export async function deleteWeeklyVotes() {
     try {
         const result = await prisma.vote.deleteMany({
-            where: {
-                week: {
-                    lt: new Date(new Date().setDate(new Date().getDate() - 7))
-                }
-            }
+            // Elimina tote les votacions que hi haguin
+   
         });
         console.log(`Deleted ${result.count} votes`);
         return result;

@@ -47,6 +47,9 @@ export default function Club({ clubData, pollClub, setPollClub }) {
 
         if (disabledPullClubs[idClub]) return; // No es pot votar si el botó està deshabilitat
 
+        const currentVotes = pollClub[idClub] || 0;
+        if (voteType === "down" && currentVotes === 0) return; // No es pot restar si les votacions són 0
+
         const voteAction = voteType === "up" ? addPullUp : addPullDown;
         const vote = await voteAction(idClub, session.user.id);
 
@@ -54,11 +57,11 @@ export default function Club({ clubData, pollClub, setPollClub }) {
             setPollClub(prevPollClub => ({
                 ...prevPollClub,
                 [idClub]: voteType === "up"
-                    ? (prevPollClub[idClub] || 0) + 1
-                    : Math.max((prevPollClub[idClub] || 0) - 1, 0),
+                    ? currentVotes + 1
+                    : Math.max(currentVotes - 1, 0),
             }));
 
-            //Actualiza el temps de votació
+            // Actualiza el temps de votació
             localStorage.setItem(`lastVoteTime-${session.user.id}-${idClub}`, new Date().toISOString());
             setDisabledPullClubs(prev => ({
                 ...prev,
@@ -96,22 +99,28 @@ export default function Club({ clubData, pollClub, setPollClub }) {
                     </div>
                     <motion.div>{clubData.addrCity}</motion.div>
                 </motion.div>
+                
                 <div className="flex flex-col bg-black h-1/2 ml-2 mt-20 rounded-full justify-center">
+                    
                     <button
-                        disabled={disabledPullClubs[clubData.id]}
                         onClick={() => handleVote(clubData.id, "up")}
+                        disabled={disabledPullClubs[clubData.id]}
                     >
                         <FeatherIcon icon="arrow-up" className="w-6 h-6 transition-colors duration-200" />
                     </button>
+                    
                     <span className="m-2">
                         {pollClub[clubData.id] || 0}
                     </span>
+
                     <button
-                        disabled={disabledPullClubs[clubData.id]}
                         onClick={() => handleVote(clubData.id, "down")}
+                        disabled={disabledPullClubs[clubData.id] || (pollClub[clubData.id] || 0) === 0}
+
                     >
                         <FeatherIcon icon="arrow-down" className="w-6 h-6 transition-colors duration-200" />
                     </button>
+
                 </div>
             </div>
 

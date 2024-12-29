@@ -1,10 +1,10 @@
 "use server"
 import cron from 'node-cron';
-import { getTop5Clubs } from '../clubsActions/clubActions.js';
-import { sendTop5ClubsEmail } from '../email.js';
+import { getTop5Clubs } from '../../lib/clubsActions/clubActions.js';
+import { sendTop5ClubsEmail } from '../../lib/email.js';
 
 
-async function runWeeklyTop5ClubsJob() {
+async function runWeeklyTopClubsJob() {
     console.log('Running weekly top 5 clubs email job');
     try {
         const top5Clubs = await getTop5Clubs();
@@ -15,6 +15,8 @@ async function runWeeklyTop5ClubsJob() {
 }
 
 //Programar l'enviament del top 5 de discoteques cada setmana diumenge a mitjanit cron.schedule('0 0 * * 0', runWeeklyTop5ClubsJob);
-cron.schedule('0 0 * * 0', runWeeklyTop5ClubsJob);
+//cron.schedule('0 0 * * 0', runWeeklyTop5ClubsJob);
+//Cada 5 minuts
+cron.schedule('*/5 * * * *', runWeeklyTopClubsJob);
 // Executar la primera vegada
-runWeeklyTop5ClubsJob();
+runWeeklyTopClubsJob();
