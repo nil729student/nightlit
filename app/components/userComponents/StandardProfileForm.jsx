@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { getUserData, updateUserData } from "../../lib/userActions/userDataActions"
+import { useSession } from "next-auth/react"
 
 export default function StandardProfileForm({ user }) {
+  const { data: session, status } = useSession();
   const [message, setMessage] = useState("")
   const [formData, setFormData] = useState({
     name: "",
@@ -29,6 +31,8 @@ export default function StandardProfileForm({ user }) {
     
     try {
       const result = await updateUserData(user.id, formData);
+      // Actualiza la informació del usuari en la sesió
+      session.user = { ...session.user, ...formData };
 
       if (result.success) {
         setMessage("Updated profle successful! You can now log in.");
