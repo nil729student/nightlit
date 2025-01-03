@@ -26,7 +26,7 @@ export default function ClubForm({selectedClub}) {
   const [loading, setLoading] = useState(true);
 
   const loadClubData = async () => {
-    if (!session || session.user.role !== "OWNER") return;
+    if (!session || session.user.role === "STANDARD") return;
     try {
       const data = await getOwnerClubData(session.user.id);
       const aClub = data[0] // De moment el usuari owner pot tenir una discoteca.
@@ -40,7 +40,7 @@ export default function ClubForm({selectedClub}) {
   }
 
   const loadClubSelectData = async () => {
-    if (!session || session.user.role !== "OWNER") return;
+    if (!session || session.user.role === "STANDARD") return;
     try {
       console.log(clubData)
       const data = await getClubData(selectedClub.id);
@@ -71,7 +71,7 @@ export default function ClubForm({selectedClub}) {
     return <p>Carregant dades...</p>;
   }
 
-  if (!session || session.user.role !== "OWNER") {
+  if (!session || session.user.role === "STANDARD") {
     return <p>No tens permisos per accedir a aquesta pàgina.</p>;
   }
 

@@ -14,7 +14,7 @@ export function SearchBar({ clubs, setFilteredClubs }) {
     filteredClubs,
   } = useFilteredClubs(clubs);
 
-  // Opciones de búsqueda para la ciudad del club
+  // Opcions de vusqueda per la ciutat
   const initialOptionsCity = [{ value: "", label: "All Cities" }];
   const [optionsCity, setOptionsCity] = useState(initialOptionsCity);
   const [selectedCity, setSelectedCity] = useState(initialOptionsCity[0]);

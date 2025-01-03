@@ -58,6 +58,13 @@ export function NavBar() {
                                             </a>
                                         </li>
                                     )}
+                                    {session.user.role === 'ADMIN' && (
+                                        <li>
+                                            <a href="/admin" className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                                Control Panel
+                                            </a>
+                                        </li>
+                                    )}
                                     <li>
                                         <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Feed</a>
                                     </li>

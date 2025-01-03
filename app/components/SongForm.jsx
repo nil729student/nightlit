@@ -84,7 +84,7 @@ export default function SongForm({ clubId }) {
                         value={songData.title}
                         onChange={(e) => setSongData((prev) => ({ ...prev, title: e.target.value }))}
                         className="w-full p-3 border rounded-lg"
-                        placeholder="Título de la canción"
+                        placeholder="Titul de la canço"
                     />
                 </div>
 
@@ -106,7 +106,7 @@ export default function SongForm({ clubId }) {
                         value={songData.url}
                         onChange={(e) => setSongData((prev) => ({ ...prev, url: e.target.value }))}
                         className="w-full p-3 border rounded-lg"
-                        placeholder="Link de la canción"
+                        placeholder="Link de la canço"
                     />
                 </div>
             </div>
@@ -125,7 +125,7 @@ export default function SongForm({ clubId }) {
                         <div>
                             <a href={song.url} target="_blank" rel="noopener noreferrer" className="font-bold underline">{song.title}</a>
                             <p>{song.artist}</p>
-                            <a href={song.url} target="_blank" rel="noopener noreferrer" className="text-blue-500">Escuchar</a>
+                            <a href={song.url} target="_blank" rel="noopener noreferrer" className="text-blue-500">Reprodueix</a>
                         </div>
                         <div>
                             <button

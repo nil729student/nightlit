@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// Tanqueu les connexions a la base de dades quan finalitzi el procés
+// Tanca les connexions a la base de dades quan es finaliza el procés
 process.on('SIGINT', async () => {
   await prisma.$disconnect();
 });

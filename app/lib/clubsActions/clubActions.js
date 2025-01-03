@@ -36,7 +36,7 @@ export async function saveClubData(ownerId, clubid, data) {
     if (!ownerId) throw new Error("Falta l'ID del propietari.");
     console.log(data)
     try {
-        // Validar y sanitizar los datos
+        // Valida i sintatiza les dades
         const validFields = [
             "name", "banner", "amenity", "addrCity", "addrStreet",
             "addrHouseNumber", "addrpostcode", "latitude", "longitude",
@@ -44,14 +44,14 @@ export async function saveClubData(ownerId, clubid, data) {
             "nodeId", "information" // falta el rating pro com que no s'utilizara i es un numero 0.0 ho complica tot
         ];
 
-        // Filtrar y sanitizar los datos
+        // Filtrar y sanitizar 
         const sanitizedData = Object.fromEntries(
             Object.entries(data)
-                .filter(([key]) => validFields.includes(key)) // Incluir solo claves válidas
+                .filter(([key]) => validFields.includes(key)) // Incueix les dades valides
                 .map(([key, value]) => [key, value ?? null]) // Convertir undefined a null
         );
         console.log(clubid)
-        // Upsert de datos
+        // Upsert de dades
         const updatedClub = await prisma.club.update({
             where: { id: clubid },
             data: sanitizedData,
@@ -61,7 +61,7 @@ export async function saveClubData(ownerId, clubid, data) {
     } catch (error) {
         console.error("Error actualitzant les dades del club:", error);
 
-        // Capturar errores específicos de Prisma
+        // Capturar errors esecifics de Prisma
         if (error.code === "P2025") {
             throw new Error("No s'ha trobat cap club amb aquest propietari.");
         }
@@ -79,7 +79,7 @@ export async function deleteClub(clubId) {
         console.log("Deleting club with ID:", clubId);
 
         await prisma.$transaction(async (tx) => {
-            // Cambiar el rol del usuario a estándar
+            // Cambiar el rol del usuari a estándar
             const club = await tx.club.findUnique({
                 where: { id: clubId },
                 select: { ownerId: true },
@@ -96,7 +96,7 @@ export async function deleteClub(clubId) {
                 });
             }
 
-            // Eliminar todas las playlists asociadas al club
+            // Elimina totes les playlists del club
             await tx.playlist.deleteMany({
                 where: {
                     clubId: clubId,
@@ -110,11 +110,11 @@ export async function deleteClub(clubId) {
                 },
             });
 
-            // Verificar y eliminar canciones que no estén asociadas a ninguna playlist
+            // Verificar y eliminar cançons que no estiguin asociadas a cap playlist
             await tx.song.deleteMany({
                 where: {
                     playlists: {
-                        none: {}, // Canciones sin ninguna playlist asociada
+                        none: {}, // Cançons sense cap playlis asociada
                     },
                 },
             });
