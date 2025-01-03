@@ -1,11 +1,11 @@
 .club-container {
   position: relative;
-  width: 300px; /* Ajusta según sea necesario */
-  height: 300px; /* Ajusta según sea necesario */
+  width: 300px; 
+  height: 300px; 
 }
 
 .club-card {
-  background: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para el contenido del club */
+  background: rgba(255, 255, 255, 0.8); 
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

@@ -100,7 +100,7 @@ export default function Club({ clubData, pollClub, setPollClub }) {
                     <motion.div>{clubData.addrCity}</motion.div>
                 </motion.div>
                 
-                <div className="flex flex-col bg-black h-1/2 ml-2 mt-20 rounded-full justify-center">
+                <div className="flex flex-col bg-black h-1/2 ml-2 mt-20 rounded-full justify-center text-white">
                     
                     <button
                         onClick={() => handleVote(clubData.id, "up")}
