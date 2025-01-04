@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { registerUser } from '../../lib/registerUser'
+import { validatePassword } from '../../utils/validaPassword'
 
 export default function OwnerRegisterPage() {
     const router = useRouter()
@@ -30,6 +31,12 @@ export default function OwnerRegisterPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage("");
+
+        if (!validatePassword(formData.password)) {
+            setMessage("Passwordn 8 characters and one capital letter.");
+            return;
+        }
+
         try {
             const result = await registerUser(formData);
             if (result.success) {

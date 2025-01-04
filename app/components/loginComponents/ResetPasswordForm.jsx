@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { validatePassword } from '../../utils/validaPassword';
 
 export default function ResetPasswordForm({ token }) {
   const router = useRouter();
@@ -11,6 +12,12 @@ export default function ResetPasswordForm({ token }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage('');
+
+    if (!validatePassword(password)) {
+      setMessage("Passwordn 8 characters and one capital letter.");
+      return;
+    }
 
     if (password !== passwordverify) {
       setMessage('Passwords do not match.');

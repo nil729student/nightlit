@@ -5,7 +5,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { registerUser } from "../../lib/registerUser";
 import { useRouter } from "next/navigation";
-import FeatherIcon from "feather-icons-react";
+import { validatePassword } from '../../utils/validaPassword'
 
 export default function StandardRegisterPage() {
     const router = useRouter();
@@ -27,6 +27,11 @@ export default function StandardRegisterPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage("");
+        
+        if (!validatePassword(formData.password)) {
+            setMessage("Passwordn 8 characters and one capital letter.");
+            return;
+        }
 
         try {
             const result = await registerUser(formData);
