@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { getClubData, getOwnerClubData, saveClubData } from "../lib/clubsActions/clubActions";
 import SongForm from "./SongForm";
 
-export default function ClubForm({selectedClub}) {
+export default function ClubForm({ selectedClub }) {
   const { data: session, status } = useSession();
   const [clubData, setClubData] = useState({
     name: "",
@@ -19,6 +19,7 @@ export default function ClubForm({selectedClub}) {
     website: "",
     instagram: "",
     facebook: "",
+    twitter: "",
     phone: "",
     information: "",
   });
@@ -61,12 +62,12 @@ export default function ClubForm({selectedClub}) {
   useEffect(() => {
     if (selectedClub !== undefined) {
       loadClubSelectData();
-    }else {
+    } else {
       console.log(selectedClub)
       loadClubData();
     }
   }, [session]);
-  
+
   if (status === "loading" || loading) {
     return <p>Carregant dades...</p>;
   }
@@ -218,6 +219,17 @@ export default function ClubForm({selectedClub}) {
             onChange={(e) => setClubData((prev) => ({ ...prev, facebook: e.target.value }))}
             className="w-full p-3 border rounded-lg"
             placeholder="Perfil de Facebook"
+          />
+        </div>
+
+        <div>
+          <label className="block text-gray-700 font-medium mb-2">X</label>
+          <input
+            type="text"
+            value={clubData.twitter}
+            onChange={(e) => setClubData((prev) => ({ ...prev, twitter: e.target.value }))}
+            className="w-full p-3 border rounded-lg"
+            placeholder="Perfil de X"
           />
         </div>
 

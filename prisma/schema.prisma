@@ -8,31 +8,29 @@ datasource db {
 }
 
 model User {
-  id           Int        @id @default(autoincrement())
-  name         String
-  email        String     @unique
-  password     String     
-  nif          String?
-  image        String?
-  authProvider String?
-  provider_id  String?
-  role         Role       @default(STANDARD)
-  votes        Vote[]
-  songVotes    SongVote[]
-  clubsOwned   Club[]     @relation("OwnerClubs")
+  id                  Int                  @id @default(autoincrement())
+  name                String
+  email               String               @unique
+  authProvider        String?
+  image               String?
+  nif                 String?
+  provider_id         String?
+  role                Role                 @default(STANDARD)
+  password            String
+  clubsOwned          Club[]               @relation("OwnerClubs")
   passwordResetTokens PasswordResetToken[]
+  songVotes           SongVote[]
+  votes               Vote[]
 }
 
 model Club {
   id              Int        @id @default(autoincrement())
   name            String?
-  banner          String?
   amenity         String
   addrCity        String?
   addrStreet      String?
   addrHouseNumber String?
   addrpostcode    String?
-  region          String?
   latitude        Float
   longitude       Float
   website         String?
@@ -43,10 +41,13 @@ model Club {
   nodeId          String
   rating          Float?
   information     String?
+  ownerId         Int?
+  banner          String?
+  region          String?
+  twitter         String?
+  owner           User?      @relation("OwnerClubs", fields: [ownerId], references: [id])
   playlists       Playlist[]
   votes           Vote[]
-  ownerId         Int?
-  owner           User?      @relation("OwnerClubs", fields: [ownerId], references: [id])
 }
 
 model Vote {
@@ -72,31 +73,31 @@ model Playlist {
   id     Int  @id @default(autoincrement())
   clubId Int
   songId Int
-  club   Club   @relation(fields: [clubId], references: [id], onDelete: Cascade)
-  song   Song   @relation(fields: [songId], references: [id], onDelete: Cascade)
+  club   Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  song   Song @relation(fields: [songId], references: [id], onDelete: Cascade)
 }
 
 model SongVote {
-  id     Int    @id @default(autoincrement())
+  id     Int      @id @default(autoincrement())
   userId Int
   songId Int
   vote   Int
   week   DateTime
-  song   Song   @relation(fields: [songId], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-enum Role {
-  STANDARD
-  ADMIN
-  OWNER
+  song   Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model PasswordResetToken {
   id        Int      @id @default(autoincrement())
   token     String   @unique
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
   expiresAt DateTime
+  userId    Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  STANDARD
+  OWNER
+  ADMIN
 }

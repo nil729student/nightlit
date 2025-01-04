@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { getClubData } from "../lib/clubsActions/clubActions";
 import { getSongs } from "../lib/clubsActions/songActions";
+import Image from 'next/image';
 import FeatherIcon from 'feather-icons-react';
 
 export default function ClubDetails({ clubId, onClose }) {
@@ -110,15 +111,21 @@ export default function ClubDetails({ clubId, onClose }) {
             <strong>Adreça:</strong> {data.addrStreet}, {data.addrHouseNumber}, {data.addrpostcode}
           </p>
           <span className="flex flex-row mt-3 space-x-4">
-            <a href={`https://www.instagram.com/${data.instagram}`}>
-              <FeatherIcon icon="instagram" className="" />
-            </a>
-            <a href={`https://www.instagram.com/${data.facebook}`}>
-              <FeatherIcon icon="facebook" className="" />
-            </a>
-            <a href={`https://www.instagram.com/${data.instagram}`}>
-              <FeatherIcon icon="twitter" className="" />
-            </a>
+            {data.instagram && (
+              <a href={`https://www.instagram.com/${data.instagram}`}>
+                <FeatherIcon icon="instagram" className="" />
+              </a>
+            )}
+            {data.facebook && (
+              <a href={`https://www.facebook.com/${data.facebook}`}>
+                <FeatherIcon icon="facebook" className="" />
+              </a>
+            )}
+            {data.twitter && (
+              <a href={`https://www.x.com/${data.twitter}`}>
+                <Image src="/x.png" alt="club" width={22} height={22} className="mt-0.5" />
+              </a>
+            )}
           </span>
           {/* Mostrar la playlist */}
           <div className="flex flex-col items-center h-60 p-4">

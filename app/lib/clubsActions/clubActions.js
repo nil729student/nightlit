@@ -40,7 +40,7 @@ export async function saveClubData(ownerId, clubid, data) {
         const validFields = [
             "name", "banner", "amenity", "addrCity", "addrStreet",
             "addrHouseNumber", "addrpostcode", "latitude", "longitude",
-            "website", "instagram", "facebook", "phone", "email",
+            "website", "instagram", "facebook", "twitter", "phone", "email",
             "nodeId", "information" // falta el rating pro com que no s'utilizara i es un numero 0.0 ho complica tot
         ];
 
