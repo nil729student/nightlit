@@ -1,9 +1,11 @@
-"use client"
+"use client";
 
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { getClubData, getOwnerClubData, saveClubData } from "../lib/clubsActions/clubActions";
 import SongForm from "./SongForm";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ClubForm({ selectedClub }) {
   const { data: session, status } = useSession();
@@ -30,40 +32,38 @@ export default function ClubForm({ selectedClub }) {
     if (!session || session.user.role === "STANDARD") return;
     try {
       const data = await getOwnerClubData(session.user.id);
-      const aClub = data[0] // De moment el usuari owner pot tenir una discoteca.
+      const aClub = data[0]; // De moment el usuari owner pot tenir una discoteca.
       const sanitizedData = sanitized(aClub);
       setClubData(sanitizedData);
     } catch (error) {
       console.error("Error carregant les dades del club:", error);
+      toast.error("Error carregant les dades del club.");
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const loadClubSelectData = async () => {
     if (!session || session.user.role === "STANDARD") return;
     try {
-      console.log(clubData)
       const data = await getClubData(selectedClub.id);
-      console.log(data)
       const sanitizedData = sanitized(data);
       setClubData(sanitizedData);
     } catch (error) {
       console.error("Error carregant les dades del club:", error);
+      toast.error("Error carregant les dades del club seleccionat.");
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-  const sanitized = (aClub) => Object.fromEntries(
-    Object.entries(aClub || {}).map(([key, value]) => [key, value ?? ""])
-  );
+  const sanitized = (aClub) =>
+    Object.fromEntries(Object.entries(aClub || {}).map(([key, value]) => [key, value ?? ""]));
 
   useEffect(() => {
     if (selectedClub !== undefined) {
       loadClubSelectData();
     } else {
-      console.log(selectedClub)
       loadClubData();
     }
   }, [session]);
@@ -80,8 +80,8 @@ export default function ClubForm({ selectedClub }) {
     const file = event.target.files[0];
     if (!file) return;
     const formData = new FormData();
-    formData.append('file', file);
-    formData.append('path', '/clubBaner');
+    formData.append("file", file);
+    formData.append("path", "/clubBaner");
 
     try {
       const response = await fetch("/api/uploadImage", {
@@ -94,28 +94,27 @@ export default function ClubForm({ selectedClub }) {
       }
 
       const data = await response.json();
-      console.log(data)
-      setClubData((prev) => ({ ...prev, banner: data.imageUrl })); // Retorna l'URL de la imatge pujada
-      alert('Baner pujat correctment')
+      setClubData((prev) => ({ ...prev, banner: data.imageUrl }));
+      toast.success("Banner pujat correctament.");
     } catch (error) {
-      console.log(error)
-      alert('Error al pujar la imatge');
+      console.error(error);
+      toast.error("Error al pujar la imatge.");
     }
-
-  }
+  };
 
   const handleSave = async () => {
     try {
-      await saveClubData(session.user.id, clubData.id, clubData,);
-      alert("Dades de la discoteca actualitzades correctament.");
+      await saveClubData(session.user.id, clubData.id, clubData);
+      toast.success("Dades de la discoteca actualitzades correctament.");
     } catch (error) {
       console.error("Error actualitzant les dades de la discoteca:", error);
-      alert("Hi ha hagut un error. Torna-ho a intentar.");
+      toast.error("Hi ha hagut un error. Torna-ho a intentar.");
     }
   };
 
   return (
     <div className="mb-8">
+      <ToastContainer position="top-right" autoClose={3000} />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label className="block text-gray-700 font-medium mb-2">Nom de la discoteca</label>
