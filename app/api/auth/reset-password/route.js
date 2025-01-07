@@ -20,9 +20,9 @@ export const POST = async (req) => {
     }
 
     const token = crypto.randomBytes(32).toString("hex");
-    // token expira en 1 hora
+    // token expira en 10 minuts
     const tokenExpiration = new Date();
-    tokenExpiration.setHours(tokenExpiration.getHours() + 1);
+    tokenExpiration.setMinutes(tokenExpiration.getMinutes()+10);
 
     await prisma.passwordResetToken.create({
       data: {
@@ -55,9 +55,9 @@ export const PUT = async (req) => {
       where: { token },
     });
     console.log(resetToken)
-    // s'ha de comprovar si aixo funciona
+    // Comprova si no ha expirat el token
     if (!resetToken || resetToken.expiresAt < new Date()) {
-      return NextResponse.json({ message: "Invalid or expired token" }, { status: 400 });
+      return NextResponse.json({ message: "Token is invalid or expired" }, { status: 400 });
     }
 
     const hashedPassword = await hash(password, 10);
@@ -67,7 +67,7 @@ export const PUT = async (req) => {
       data: { password: hashedPassword },
     });
 
-    await prisma.passwordResetToken.delete({ where: { token } });
+    await prisma.passwordResetToken.delete({ where: { token } }); 
 
     return NextResponse.json({ message: "Password reset successful" }, { status: 200 });
   } catch (error) {
