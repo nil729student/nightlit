@@ -79,23 +79,30 @@ export default function ClubForm({ selectedClub }) {
   const handleBannerUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
+  
+    const maxSizeInBytes = 1024 * 200; // Pes maxim de la imarge 200KB
+  
+    if (file.size > maxSizeInBytes) {
+      toast.error("La mida de la imatge és massa gran. El màxim és de 200kb.");
+      return;
+    }
+  
     const formData = new FormData();
     formData.append("file", file);
     formData.append("path", "/clubBaner");
-
+  
     try {
       const response = await fetch("/api/uploadImage", {
         method: "POST",
         body: formData,
       });
-
+  
       if (!response.ok) {
         throw new Error("Error pujant la imatge");
       }
-
+  
       const data = await response.json();
       setClubData((prev) => ({ ...prev, banner: data.imageUrl }));
-      toast.success("Banner pujat correctament.");
     } catch (error) {
       console.error(error);
       toast.error("Error al pujar la imatge.");

@@ -4,6 +4,8 @@ import FeatherIcon from 'feather-icons-react';
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { saveSong, getSongs, deleteSong, updateSong } from "../lib/clubsActions/songActions.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SongForm({ clubId }) {
     const { data: session } = useSession();
@@ -29,7 +31,7 @@ export default function SongForm({ clubId }) {
 
     const handleSave = async () => {
         if (!session) {
-            alert("Has de iniciar sesión para agregar canciones.");
+            toast.error("Has d'iniciar sessió per afegir una canço.");
             return;
         }
 
@@ -47,10 +49,10 @@ export default function SongForm({ clubId }) {
                 artist: "",
                 url: "",
             });
-            alert("Canción guardada correctamente.");
+            toast.success("Canço guardada correctament.");
         } catch (error) {
-            console.error("Error guardando la canción:", error);
-            alert("Hubo un error. Inténtalo de nuevo.");
+            console.error(":", error);
+            toast.error("Hi ha hagut un error. Torna-ho a intentar.");
         }
     };
 
@@ -67,16 +69,19 @@ export default function SongForm({ clubId }) {
         try {
             await deleteSong(songId);
             setSongs(songs.filter(song => song.id !== songId));
+            toast.success("Canço eliminada correctament.");
         } catch (error) {
             console.error("Error eliminando la canción:", error);
-            alert("Hubo un error. Inténtalo de nuevo.");
+            toast.error("Hi ha hagut un error. Torna-ho a intentar.");
         }
     };
 
     return (
         <div className="mb-8">
             <h2 className="text-2xl font-bold mb-4">Afageix cançons</h2>
+            <ToastContainer position="top-right" autoClose={3000} />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
                 <div>
                     <label className="block text-gray-700 font-medium mb-2">Titul</label>
                     <input
