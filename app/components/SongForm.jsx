@@ -34,22 +34,28 @@ export default function SongForm({ clubId }) {
             toast.error("Has d'iniciar sessió per afegir una canço.");
             return;
         }
-
+        if (!songData.title || !songData.artist || !songData.url) {
+            toast.error("Has d'omplir tots els camps.");
+            return;
+        }
         try {
             if (editingSongId) {
                 const updatedSong = await updateSong(editingSongId, songData);
                 setSongs(songs.map(song => song.id === editingSongId ? updatedSong : song));
                 setEditingSongId(null);
+                toast.success("Canço actualitzada correctament.");
             } else {
+
                 const newSong = await saveSong(clubId, session.user.id, songData);
                 setSongs([...songs, newSong]);
+                toast.success("Canço afegida correctament.");
             }
             setSongData({
                 title: "",
                 artist: "",
                 url: "",
             });
-            toast.success("Canço guardada correctament.");
+
         } catch (error) {
             console.error(":", error);
             toast.error("Hi ha hagut un error. Torna-ho a intentar.");
@@ -79,7 +85,6 @@ export default function SongForm({ clubId }) {
     return (
         <div className="mb-8">
             <h2 className="text-2xl font-bold mb-4">Afageix cançons</h2>
-            <ToastContainer position="top-right" autoClose={3000} />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                 <div>
@@ -149,6 +154,17 @@ export default function SongForm({ clubId }) {
                     </li>
                 ))}
             </ul>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 }

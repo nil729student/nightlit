@@ -86,6 +86,12 @@ export default function ClubForm({ selectedClub }) {
       toast.error("La mida de la imatge és massa gran. El màxim és de 200kb.");
       return;
     }
+
+    // si els fitxers no son imatges
+    if (!file.type.startsWith("image")) {
+      toast.error("El fitxer no és una imatge.");
+      return;
+    }
   
     const formData = new FormData();
     formData.append("file", file);
@@ -121,7 +127,6 @@ export default function ClubForm({ selectedClub }) {
 
   return (
     <div className="mb-8">
-      <ToastContainer position="top-right" autoClose={3000} />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label className="block text-gray-700 font-medium mb-2">Nom de la discoteca</label>
@@ -268,6 +273,18 @@ export default function ClubForm({ selectedClub }) {
         Guardar canvis
       </button>
       <SongForm clubId={clubData.id} />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
