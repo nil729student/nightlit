@@ -52,7 +52,7 @@ export default function AdminPage() {
 
   return (
     <div className="flex flex-col items-center justify-center bg-gradient-to-r from-purple-500 to-blue-500 text-white">
-      <h1 className="text-4xl font-bold m-8">Pagina d'administrador</h1>
+      <h1 className="text-4xl font-bold m-8">Pàgina d'administrador</h1>
       <div className="w-full max-w-4xl">
         {selectedClub ? (
           <div className="bg-white text-black p-4 mb-4 rounded-lg shadow-md">
