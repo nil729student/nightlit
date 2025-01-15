@@ -2,6 +2,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+Installem les dependencies:
+```bash
+npm install
+```
+
 First, run the development server:
 
 ```bash
@@ -12,6 +17,18 @@ yarn dev
 pnpm dev
 # or
 bun dev
+```
+
+Primer de tot haurem de especificar la conneció de la base de dades dins l'archiu .env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/nombasededades?schema=public"
+
+```bash
+# Crea la estructura de la base de dades
+npx prisma migrate dev --name init
+
+# Insertar dades
+node prisma/seed.js
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

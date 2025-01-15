@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { getClubData } from "../lib/clubsActions/clubActions";
 import { getSongs } from "../lib/clubsActions/songActions";
+import Link from "next/link";
 import Image from 'next/image';
 import FeatherIcon from 'feather-icons-react';
 
@@ -94,14 +95,14 @@ export default function ClubDetails({ clubId, onClose }) {
       >
         <div className="flex flex-col justify-between p-4 space-y-4 w-full md:w-1/2">
           <h1 className="text-3xl font-bold text-white">{data.name}</h1>
-          <a
+          <Link
             href={data.website}
-            target="_blank"
+            target="_blank" 
             rel="noopener noreferrer"
             className="mt-2 inline-block text-blue-400 hover:underline"
           >
             {data.website}
-          </a>
+          </Link>
           <p className="mt-2 text-gray-300">{data.information}</p>
 
           <p className="mt-2 text-gray-300">
@@ -112,23 +113,23 @@ export default function ClubDetails({ clubId, onClose }) {
           </p>
           <span className="flex flex-row mt-3 space-x-4">
             {data.instagram && (
-              <a href={`https://www.instagram.com/${data.instagram}`}>
+              <Link href={`https://www.instagram.com/${data.instagram}`} target="_blank" rel="noopener noreferrer">
                 <FeatherIcon icon="instagram" className="" />
-              </a>
+              </Link>
             )}
             {data.facebook && (
-              <a href={`https://www.facebook.com/${data.facebook}`}>
+              <Link href={`https://www.facebook.com/${data.facebook}`} target="_blank" rel="noopener noreferrer">
                 <FeatherIcon icon="facebook" className="" />
-              </a>
+              </Link>
             )}
             {data.twitter && (
-              <a href={`https://www.x.com/${data.twitter}`}>
+              <Link href={`https://www.x.com/${data.twitter}`} target="_blank" rel="noopener noreferrer">
                 <Image src="/x.png" alt="club" width={22} height={22} className="mt-0.5" />
-              </a>
+              </Link>
             )}
           </span>
           {/* Mostrar la playlist */}
-          <div className="flex flex-col items-center h-60 p-4">
+          <div className="flex flex-col items-center h-60 p-4 text-white">
             {songsData.data.length > 0 && (
               <>
                 <h2 className="text-2xl font-bold mb-4">Playlist</h2>
@@ -136,14 +137,14 @@ export default function ClubDetails({ clubId, onClose }) {
                   <ul className="mx-4">
                     {songsData.data.map((song) => (
                       <li key={song.id}>
-                        <a
+                        <Link
                           href={song.url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="hover:underline"
                         >
                           {song.title}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>

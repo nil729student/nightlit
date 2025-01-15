@@ -83,7 +83,7 @@ export default function SongForm({ clubId }) {
     };
 
     return (
-        <div className="mb-8">
+        <div className="mb-8 mt-8">
             <h2 className="text-2xl font-bold mb-4">Afageix cançons</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
