@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { getUserData, updateUserData } from "../../lib/userActions/userDataActions"
 import { useSession } from "next-auth/react"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function StandardProfileForm({ user }) {
   const { data: session, status } = useSession();
@@ -35,21 +37,19 @@ export default function StandardProfileForm({ user }) {
       session.user = { ...session.user, ...formData };
 
       if (result.success) {
-        setMessage("Updated profle successful! You can now log in.");
+        toast.success("Dades actualitzades correctament.");
       } else {
-        setMessage(result.error || "Update profile failed.");
+        toast.error(result.error || "Actualització fallida.");
       }
 
     } catch (error) {
 
-      console.error("Error submitting form:", error);
-      setMessage("Something went wrong. Please try again.");
+      console.error("Error al enviar l'informació:", error);
+      toast.error("Algo ha anat malament. Torna a intentar-ho.");
 
     }
 
-
-    console.log("Guardando datos del usuario:", formData);
-    alert("Datos actualizados correctamente.");
+    console.log("Guardant dades del usuari:", formData);
   };
 
   const handleImageUpload = async (event) => {
@@ -73,10 +73,10 @@ export default function StandardProfileForm({ user }) {
       const data = await response.json();
       console.log(data)
       setFormData((prev) => ({ ...prev, image: data.imageUrl }));
-      alert('Imatge pujada correctament');
+      toast.success('Imatge pujada correctament');
     } catch (error) {
       console.error('Error pujant la imatge:', error);
-      alert('Error al pujar la imatge');
+      toast.error('Error al pujar la imatge');
     }
   };
 
@@ -122,6 +122,17 @@ export default function StandardProfileForm({ user }) {
       <button onClick={handleSave} className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
         Guardar canvis
       </button>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
