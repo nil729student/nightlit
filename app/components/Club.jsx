@@ -18,7 +18,7 @@ export default function Club({ clubData, pollClub, setPollClub }) {
 
     useEffect(() => {
         if (!session || !session.user) return;
-
+        // Deshabilita el botó de vot si ja ha votat recentment
         // Es verifica si ha votat recent ment per a deshabilitar el botó de vot
         const lastVoteTime = localStorage.getItem(`lastVoteTime-${session.user.id}-${clubData.id}`);
         if (lastVoteTime) {

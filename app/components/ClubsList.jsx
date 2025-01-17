@@ -15,6 +15,7 @@ export default function ClubsList() {
     const clubs = await listClubsByCityPullOrder();
 
     setPollClub(pollClub.reduce((acc, vote) => {
+      console.log(vote);
       acc[vote.clubId] = (acc[vote.clubId] || 0) + vote.vote;
       return acc;
     }, {}));

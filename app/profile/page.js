@@ -10,9 +10,6 @@ export default function ProfilePage() {
     return <p>Carregant dades...</p>;
   }
 
-  if (!session) {
-    return <p>Has d'iniciar sessió per veure aquesta pàgina.</p>;
-  }
 
   return (
     <div className="min-h-screen bg-gray-100 py-10">
