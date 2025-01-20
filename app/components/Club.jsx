@@ -16,28 +16,34 @@ export default function Club({ clubData, pollClub, setPollClub }) {
     const router = useRouter();
     const cooldownPull = 5 * 60 * 1000; // 5 minuts
 
+    // Nomes carregar la paguina es comprova si hi ha una sessió i si ha votat recentment
     useEffect(() => {
         if (!session || !session.user) return;
         // Deshabilita el botó de vot si ja ha votat recentment
         // Es verifica si ha votat recent ment per a deshabilitar el botó de vot
-        const lastVoteTime = localStorage.getItem(`lastVoteTime-${session.user.id}-${clubData.id}`);
+        const lastVoteTime = localStorage.getItem(`lastVoteTime-${session.user.id}-${clubData.id}`); // creem una variable per a guardar el temps de votació
+        // Si ha votat recentment, deshabilita el botó de vot
         if (lastVoteTime) {
-            const timeSinceLastVote = Date.now() - new Date(lastVoteTime).getTime();
-            if (timeSinceLastVote < cooldownPull) {
+            // Calculo el temps que ha passat des de l'últim vot
+            const tempsDesdeElUltimVot = Date.now() - new Date(lastVoteTime).getTime();
+            // Si el temps que ha passat és menor que el cooldown, deshabilita el botó de vot
+            if (tempsDesdeElUltimVot < cooldownPull) {
+                // Deshabilita el botó de vot
                 setDisabledPullClubs(prev => ({
                     ...prev,
                     [clubData.id]: true,
                 }));
-                const timeout = setTimeout(() => {
+                // Després de 5 minuts, es torna a habilitar el botó de vot
+                const timeout = setTimeout(() => { //
                     setDisabledPullClubs(prev => ({
                         ...prev,
                         [clubData.id]: false,
                     }));
-                }, cooldownPull - timeSinceLastVote);
-                return () => clearTimeout(timeout);
+                }, cooldownPull - tempsDesdeElUltimVot); // mirem quant falta per a poder votar
+                return () => clearTimeout(timeout); // si no ha passat el temps, es cancela el temps
             }
         }
-    }, [session, clubData.id]);
+    }, [session, clubData.id]); 
 
     const handleVote = async (idClub, voteType) => {
         if (!session || !session.user) {

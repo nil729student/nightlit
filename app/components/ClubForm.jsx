@@ -121,23 +121,22 @@ export default function ClubForm({ selectedClub }) {
     const phone = clubData.phone;
     const information = clubData.information;
 
-    if (!/^\d+$/.test(houseNumber)) {
+    if (houseNumber !== null && houseNumber !== "" && !/^\d+$/.test(houseNumber)) {
       toast.error("El número de casa ha de ser un enter.");
       return;
     }
-
-    if (!/^\d{5}$/.test(postcode)) {
+    if (postcode != null && postcode !== "" && !/^\d{5}$/.test(postcode)) {
       toast.error("El codi postal ha de ser un número de 5 dígits.");
       return;
     }
 
-    if (!/^\d{9}$/.test(phone)) {
+    if (phone != null && phone !== "" && !/^\d{9}$/.test(phone)) {
       toast.error("El número de telèfon ha de ser un número de 9 dígits.");
       return;
     }
 
-    if (information.length > 100) {
-      toast.error("La informació no pot tenir més de 100 caràcters.");
+    if (information != null && information !== "" && information.length > 300) {
+      toast.error("La informació no pot tenir més de 300 caràcters.");
       return;
     }
 

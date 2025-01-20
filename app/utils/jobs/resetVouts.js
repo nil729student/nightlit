@@ -7,5 +7,3 @@ cron.schedule('*/5 * * * *', async () => {
     console.log('Running weekly vote deletion');
     await deleteWeeklyVotes();
 });
-
-
