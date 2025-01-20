@@ -95,14 +95,14 @@ export default function ClubDetails({ clubId, onClose }) {
       >
         <div className="flex flex-col justify-between p-4 space-y-4 w-full md:w-1/2">
           <h1 className="text-3xl font-bold text-white">{data.name}</h1>
-          <Link
+          <a
             href={data.website}
             target="_blank" 
             rel="noopener noreferrer"
             className="mt-2 inline-block text-blue-400 hover:underline"
           >
             {data.website}
-          </Link>
+          </a>
           <p className="mt-2 text-gray-300">{data.information}</p>
 
           <p className="mt-2 text-gray-300">
@@ -113,19 +113,19 @@ export default function ClubDetails({ clubId, onClose }) {
           </p>
           <span className="flex flex-row mt-3 space-x-4">
             {data.instagram && (
-              <Link href={`https://www.instagram.com/${data.instagram}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://www.instagram.com/${data.instagram}`} target="_blank" rel="noopener noreferrer">
                 <FeatherIcon icon="instagram" className="" />
-              </Link>
+              </a>
             )}
             {data.facebook && (
-              <Link href={`https://www.facebook.com/${data.facebook}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://www.facebook.com/${data.facebook}`} target="_blank" rel="noopener noreferrer">
                 <FeatherIcon icon="facebook" className="" />
-              </Link>
+              </a>
             )}
             {data.twitter && (
-              <Link href={`https://www.x.com/${data.twitter}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://www.x.com/${data.twitter}`} target="_blank" rel="noopener noreferrer">
                 <Image src="/x.png" alt="club" width={22} height={22} className="mt-0.5" />
-              </Link>
+              </a>
             )}
           </span>
           {/* Mostrar la playlist */}
@@ -137,14 +137,14 @@ export default function ClubDetails({ clubId, onClose }) {
                   <ul className="mx-4">
                     {songsData.data.map((song) => (
                       <li key={song.id}>
-                        <Link
+                        <a
                           href={song.url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="hover:underline"
                         >
                           {song.title}
-                        </Link>
+                        </a>
                       </li>
                     ))}
                   </ul>

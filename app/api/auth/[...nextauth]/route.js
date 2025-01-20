@@ -50,7 +50,7 @@ export const authOptions = {
     },
     session: {
         strategy: "jwt",
-        maxAge: 10*60,
+        maxAge: 30*60,
     },
     callbacks: {
         async jwt({ token, user }) {

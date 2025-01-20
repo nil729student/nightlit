@@ -116,6 +116,31 @@ export default function ClubForm({ selectedClub }) {
   };
 
   const handleSave = async () => {
+    const houseNumber = clubData.addrHouseNumber;
+    const postcode = clubData.addrpostcode;
+    const phone = clubData.phone;
+    const information = clubData.information;
+
+    if (!/^\d+$/.test(houseNumber)) {
+      toast.error("El número de casa ha de ser un enter.");
+      return;
+    }
+
+    if (!/^\d{5}$/.test(postcode)) {
+      toast.error("El codi postal ha de ser un número de 5 dígits.");
+      return;
+    }
+
+    if (!/^\d{9}$/.test(phone)) {
+      toast.error("El número de telèfon ha de ser un número de 9 dígits.");
+      return;
+    }
+
+    if (information.length > 100) {
+      toast.error("La informació no pot tenir més de 100 caràcters.");
+      return;
+    }
+
     try {
       await saveClubData(session.user.id, clubData.id, clubData);
       toast.success("Dades de la discoteca actualitzades correctament.");

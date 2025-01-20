@@ -31,11 +31,11 @@ export default function SongForm({ clubId }) {
 
     const handleSave = async () => {
         if (!session) {
-            toast.error("Has d'iniciar sessió per afegir una canço.");
+            //toast.error("Has d'iniciar sessió per afegir una canço.");
             return;
         }
         if (!songData.title || !songData.artist || !songData.url) {
-            toast.error("Has d'omplir tots els camps.");
+            //toast.error("Has d'omplir tots els camps.");
             return;
         }
         try {
@@ -43,12 +43,12 @@ export default function SongForm({ clubId }) {
                 const updatedSong = await updateSong(editingSongId, songData);
                 setSongs(songs.map(song => song.id === editingSongId ? updatedSong : song));
                 setEditingSongId(null);
-                toast.success("Canço actualitzada correctament.");
+                //toast.success("Canço actualitzada correctament.");
             } else {
 
                 const newSong = await saveSong(clubId, session.user.id, songData);
                 setSongs([...songs, newSong]);
-                toast.success("Canço afegida correctament.");
+                //toast.success("Canço afegida correctament.");
             }
             setSongData({
                 title: "",
@@ -58,7 +58,7 @@ export default function SongForm({ clubId }) {
 
         } catch (error) {
             console.error(":", error);
-            toast.error("Hi ha hagut un error. Torna-ho a intentar.");
+            //toast.error("Hi ha hagut un error. Torna-ho a intentar.");
         }
     };
 
@@ -75,10 +75,10 @@ export default function SongForm({ clubId }) {
         try {
             await deleteSong(songId);
             setSongs(songs.filter(song => song.id !== songId));
-            toast.success("Canço eliminada correctament.");
+            //toast.success("Canço eliminada correctament.");
         } catch (error) {
             console.error("Error eliminando la canción:", error);
-            toast.error("Hi ha hagut un error. Torna-ho a intentar.");
+            //toast.error("Hi ha hagut un error. Torna-ho a intentar.");
         }
     };
 
@@ -88,7 +88,7 @@ export default function SongForm({ clubId }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                 <div>
-                    <label className="block text-gray-700 font-medium mb-2">Titul</label>
+                    <label className="block text-gray-700 font-medium mb-2">Titol</label>
                     <input
                         type="text"
                         value={songData.title}
@@ -154,7 +154,7 @@ export default function SongForm({ clubId }) {
                     </li>
                 ))}
             </ul>
-            <ToastContainer
+            {/*<ToastContainer
                 position="top-right"
                 autoClose={5000}
                 hideProgressBar={false}
@@ -164,7 +164,7 @@ export default function SongForm({ clubId }) {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-            />
+            />*/}
         </div>
     );
 }
