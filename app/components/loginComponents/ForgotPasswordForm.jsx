@@ -15,13 +15,13 @@ export default function ForgotPasswordForm() {
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage("Revisa tu correo electrónico para continuar.");
+        setMessage("Revisa el teu correu per continuar.");
       } else {
-        setMessage(data.error || "Algo salió mal.");
+        setMessage(data.error || "algo ha sortit malament .");
       }
     } catch (err) {
       console.log(err)
-      setMessage("Error al procesar la solicitud.");
+      setMessage("Error al porcesar la solicitud.");
     }
   };
 

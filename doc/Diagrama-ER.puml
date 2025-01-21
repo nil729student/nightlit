@@ -1,14 +1,7 @@
 @startuml
 !define RECTANGLE class
 
-RECTANGLE datasource {
-  +provider: String
-  +url: String
-}
 
-RECTANGLE generator {
-  +provider: String
-}
 
 RECTANGLE User {
   +id: Int
