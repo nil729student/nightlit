@@ -83,13 +83,13 @@ export default function Club({ clubData, pollClub, setPollClub }) {
         }
     };
 
-    const mosaicStyle = {
-        background: generateDiscoMosaicBackground(),
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        padding: '16px',
-        margin: '16px',
-    };
+const mosaicStyle = {
+  background: generateDiscoMosaicBackground().background,
+  borderRadius: '8px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  padding: '16px',
+  margin: '16px',
+};
 
     return (
         <div className="club-container" style={mosaicStyle}>
