@@ -1,0 +1,40 @@
+/* Estils bàsics per a la pàgina */
+body {
+    margin: 0;
+    background: #000; /* Fons negre per contrastar amb les bombolles blanques */
+    overflow: hidden;
+  }
+  
+  /* Contenidor complet per a les bombolles */
+  .bubbles-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  /* Estils per a cada bombolla */
+  .bubble {
+    position: absolute;
+    bottom: -50px; /* Inicia fora de la pantalla per la part inferior */
+    background: white;
+    opacity: 0.8;
+    border-radius: 50%;
+    /* L'animació farà que la bombolla pugui pujar */
+    animation: rise linear infinite;
+  }
+  
+  /* Keyframes de l'animació: les bombolles pujaran i s'atenuaran */
+  @keyframes rise {
+    0% {
+      transform: translateY(0);
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateY(-110vh); /* S'eleva per sobre de la pantalla */
+      opacity: 0;
+    }
+  }
+  

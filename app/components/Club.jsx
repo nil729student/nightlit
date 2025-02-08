@@ -114,14 +114,14 @@ export default function Club({ clubData, pollClub, setPollClub }) {
         borderRadius: '8px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         padding: '16px',
-        margin: '16px',
+        margin: '25px',
     };
 
     return (
         <>
             <motion.div
             ref={ref}
-            className="relative flex flex-col items-center p-6 rounded-lg shadow-lg text-white cursor-pointer"
+            className="relative flex flex-col items-center p-10 rounded-lg shadow-lg text-white cursor-pointer"
             style={{ ...mosaicStyle, scale: springScale }}>
                 <div className="flex">
                     <motion.div
