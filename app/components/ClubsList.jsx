@@ -1,14 +1,27 @@
 "use client"
-import {listClubs, listClubsByCityPullOrder} from '../lib/clubsActions/listClubs.js';
+import { listClubs, listClubsByCityPullOrder } from '../lib/clubsActions/listClubs.js';
 import { addPullUp, getClubVote } from "../lib/clubsActions/pullActions/userPullActions.js";
 import { useEffect, useState } from "react";
 import { SearchBar } from './SearchBar.jsx';
 import Club from './Club.jsx';
+import { usePathname } from "next/navigation";
+import { init, cleanup } from "../animation/fonsStars/script.js";
 
 export default function ClubsList() {
   const [clubs, setClubs] = useState([]);
   const [filteredClubs, setFilteredClubs] = useState([]);
   const [pollClub, setPollClub] = useState({});
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname === "/") {
+      init();
+    }
+    return () => {
+      cleanup();
+    };
+  }, [pathname]);
 
   async function fetchClubs() {
     const pollClub = await getClubVote();
@@ -30,6 +43,7 @@ export default function ClubsList() {
 
   return (
     <>
+      {pathname === "/" && <div className="stars-container"></div>}
       <SearchBar clubs={clubs} setFilteredClubs={setFilteredClubs} />
       {filteredClubs.map((club, index) => (
         <Club
