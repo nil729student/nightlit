@@ -34,23 +34,22 @@ export async function getOwnerClubData(ownerId) {
 
 export async function saveClubData(ownerId, clubid, data) {
     if (!ownerId) throw new Error("Falta l'ID del propietari.");
-    console.log(data)
+
     try {
         // Valida i sintatiza les dades
         const validFields = [
-            "name", "banner", "amenity", "addrCity", "addrStreet",
+            "name", "banner", "amenity", "region", "addrCity", "addrStreet",
             "addrHouseNumber", "addrpostcode", "latitude", "longitude",
             "website", "instagram", "facebook", "twitter", "phone", "email",
             "nodeId", "information" // falta el rating pro com que no s'utilizara i es un numero 0.0 ho complica tot
         ];
-
         // Filtrar y sanitizar 
         const sanitizedData = Object.fromEntries(
             Object.entries(data)
                 .filter(([key]) => validFields.includes(key)) // Incueix les dades valides
                 .map(([key, value]) => [key, value ?? null]) // Convertir undefined a null
         );
-        console.log(clubid)
+
         // Upsert de dades
         const updatedClub = await prisma.club.update({
             where: { id: clubid },

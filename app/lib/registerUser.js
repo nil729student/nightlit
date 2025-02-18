@@ -8,6 +8,7 @@ export async function registerUser({
     password, 
     role, 
     clubName,
+    region,
     addrCity,
     addrStreet,
     addrHouseNumber
@@ -58,6 +59,7 @@ export async function registerUser({
                         create: {
                             name: clubName,
                             amenity: "nightclub",
+                            region: region,
                             addrCity: addrCity,
                             addrStreet: addrStreet,
                             addrHouseNumber: addrHouseNumber,

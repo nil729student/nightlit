@@ -27,7 +27,7 @@ model User {
 model Club {
   id              Int        @id @default(autoincrement())
   name            String?
-  amenity         String
+  amenity         String     @default("nightclub")
   addrCity        String?
   addrStreet      String?
   addrHouseNumber String?

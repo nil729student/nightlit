@@ -15,7 +15,7 @@ export default function OwnerRegisterPage() {
         password: "",
         role: "OWNER",
         clubName: "",
-        //region: "", comarca
+        region: "", 
         addrCity: "",
         addrStreet: "",
         addrHouseNumber: "",
@@ -105,6 +105,17 @@ export default function OwnerRegisterPage() {
                         id="clubName"
                         name="clubName"
                         value={formData.clubName}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border rounded-lg"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="addrCity" className="block text-sm font-bold mb-2">Comarca</label>
+                    <input
+                        type="text"
+                        id="region"
+                        name="region"
+                        value={formData.region}
                         onChange={handleChange}
                         className="w-full px-3 py-2 border rounded-lg"
                     />

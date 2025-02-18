@@ -7,34 +7,36 @@ import SongForm from "./SongForm";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const initialClubData = {
+  name: "",
+  region: "",
+  addrCity: "",
+  addrStreet: "",
+  addrHouseNumber: "",
+  addrpostcode: "",
+  banner: "",
+  website: "",
+  instagram: "",
+  facebook: "",
+  twitter: "",
+  phone: "",
+  email: "",
+  nodeId: "",
+  information: "",
+};
+
 export default function ClubForm({ selectedClub }) {
   const { data: session, status } = useSession();
-  const [clubData, setClubData] = useState({
-    name: "",
-    banner: "",
-    addrCity: "",
-    addrStreet: "",
-    addrHouseNumber: "",
-    addrpostcode: "",
-    latitude: "",
-    longitude: "",
-    website: "",
-    instagram: "",
-    facebook: "",
-    twitter: "",
-    phone: "",
-    information: "",
-  });
-
+  const [clubData, setClubData] = useState(initialClubData);
   const [loading, setLoading] = useState(true);
+
 
   const loadClubData = async () => {
     if (!session || session.user.role === "STANDARD") return;
     try {
       const data = await getOwnerClubData(session.user.id);
-      const aClub = data[0]; // De moment el usuari owner pot tenir una discoteca.
-      const sanitizedData = sanitized(aClub);
-      setClubData(sanitizedData);
+      const aClub = data[0];
+      setClubData(sanitized(aClub));
     } catch (error) {
       console.error("Error carregant les dades del club:", error);
       toast.error("Error carregant les dades del club.");
@@ -47,8 +49,7 @@ export default function ClubForm({ selectedClub }) {
     if (!session || session.user.role === "STANDARD") return;
     try {
       const data = await getClubData(selectedClub.id);
-      const sanitizedData = sanitized(data);
-      setClubData(sanitizedData);
+      setClubData(sanitized(data));
     } catch (error) {
       console.error("Error carregant les dades del club:", error);
       toast.error("Error carregant les dades del club seleccionat.");
@@ -57,16 +58,20 @@ export default function ClubForm({ selectedClub }) {
     }
   };
 
-  const sanitized = (aClub) =>
-    Object.fromEntries(Object.entries(aClub || {}).map(([key, value]) => [key, value ?? ""]));
-
+  const sanitized = (aClub) => {
+    const sanitizedData = Object.fromEntries(
+      Object.entries(aClub || {}).map(([key, value]) => [key, value ?? ""])
+    );
+    return { ...initialClubData, ...sanitizedData };
+  };
+  
   useEffect(() => {
     if (selectedClub !== undefined) {
       loadClubSelectData();
     } else {
       loadClubData();
     }
-  }, [session]);
+  }, [session, selectedClub]);
 
   if (status === "loading" || loading) {
     return <p>Carregant dades...</p>;
@@ -79,9 +84,9 @@ export default function ClubForm({ selectedClub }) {
   const handleBannerUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
-  
+
     const maxSizeInBytes = 1024 * 200; // Pes maxim de la imarge 200KB
-  
+
     if (file.size > maxSizeInBytes) {
       toast.error("La mida de la imatge és massa gran. El màxim és de 200kb.");
       return;
@@ -92,21 +97,21 @@ export default function ClubForm({ selectedClub }) {
       toast.error("El fitxer no és una imatge.");
       return;
     }
-  
+
     const formData = new FormData();
     formData.append("file", file);
     formData.append("path", "/clubBaner");
-  
+
     try {
       const response = await fetch("/api/uploadImage", {
         method: "POST",
         body: formData,
       });
-  
+
       if (!response.ok) {
         throw new Error("Error pujant la imatge");
       }
-  
+
       const data = await response.json();
       setClubData((prev) => ({ ...prev, banner: data.imageUrl }));
     } catch (error) {
@@ -120,11 +125,19 @@ export default function ClubForm({ selectedClub }) {
     const postcode = clubData.addrpostcode;
     const phone = clubData.phone;
     const information = clubData.information;
+    const region = clubData.region;
+    
+
+    if (region.length > 50) {
+      toast.error("La comarca no pot tenir més de 50 caràcters.");
+      return;
+    }
 
     if (houseNumber !== null && houseNumber !== "" && !/^\d+$/.test(houseNumber)) {
       toast.error("El número de casa ha de ser un enter.");
       return;
     }
+
     if (postcode != null && postcode !== "" && !/^\d{5}$/.test(postcode)) {
       toast.error("El codi postal ha de ser un número de 5 dígits.");
       return;
@@ -160,6 +173,17 @@ export default function ClubForm({ selectedClub }) {
             onChange={(e) => setClubData((prev) => ({ ...prev, name: e.target.value }))}
             className="w-full p-3 border rounded-lg"
             placeholder="Nom de la discoteca"
+          />
+        </div>
+
+        <div>
+          <label className="block text-gray-700 font-medium mb-2">Comarca</label>
+          <input
+            type="text"
+            value={clubData.region}
+            onChange={(e) => setClubData((prev) => ({ ...prev, region: e.target.value }))}
+            className="w-full p-3 border rounded-lg"
+            placeholder="Comarca"
           />
         </div>
 
