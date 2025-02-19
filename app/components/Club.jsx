@@ -49,6 +49,7 @@ export default function Club({ clubData, pollClub, setPollClub }) {
             }
         }
     }, [session, clubData.id]);
+
     // Nuevo efecto para el scroll
     useEffect(() => {
         const handleScroll = () => {
@@ -120,46 +121,70 @@ export default function Club({ clubData, pollClub, setPollClub }) {
     return (
         <>
             <motion.div
-            ref={ref}
-            className="relative flex flex-col items-center p-10 rounded-lg shadow-lg text-white cursor-pointer"
-            style={{ ...mosaicStyle, scale: springScale }}>
+                ref={ref}
+                className="relative flex flex-col items-center p-10 rounded-lg shadow-lg text-white cursor-pointer"
+                style={{ ...mosaicStyle, scale: springScale }}>
                 <div className="flex">
                     <motion.div
                         key={clubData.id}
-                        className="club-card flex flex-col items-center justify-center w-64 h-64 p-8 text-black rounded-lg shadow-lg overflow-auto"
+                        className="club-card flex flex-col items-center justify-center w-64 h-64 p-8 text-black rounded-lg shadow-lg overflow-auto hover:shadow-xl transition-shadow duration-300"
                         onClick={() => setSelectedId(clubData.id)}
                     >
-                        <motion.h5 className="text-center"><b>{clubData.name}</b></motion.h5>
-                        <div className="flex flex-col items-center justify-center">
-                            <motion.h2 className="text-center">{clubData.website}</motion.h2>
-                        </div>
-                        <motion.div>{clubData.addrCity}</motion.div>
+                        <motion.h5 className="text-center text-xl font-bold mb-2">
+                            {clubData.name}
+                        </motion.h5>
+                        <motion.h2 className="text-center text-sm text-gray-600 mb-4">
+                            <a
+                                href={clubData.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:underline"
+                            >
+                                {clubData.website}
+                            </a>
+                        </motion.h2>
+
+                        <motion.div className="flex items-center mt-2">
+                            <FeatherIcon icon="map-pin" className="w-5 h-5 text-gray-500 mr-2" />
+                            <div className="flex items-center space-x-2">
+                                {clubData.region && (
+                                    <span className="text-sm text-gray-700">{clubData.region}</span>
+                                )}
+                                {clubData.region && clubData.addrCity && (
+                                    <span className="text-sm text-gray-500">|</span>
+                                )}
+                                {clubData.addrCity && (
+                                    <span className="text-sm text-gray-700">{clubData.addrCity}</span>
+                                )}
+                            </div>
+                        </motion.div>
                     </motion.div>
-                    
+
+
                     <div className="flex flex-col bg-black h-1/2 ml-2 mt-20 rounded-full justify-center text-white">
-                        
+
                         <button
                             onClick={() => handleVote(clubData.id, "up")}
                             disabled={disabledPullClubs[clubData.id]}
                         >
                             <FeatherIcon icon="arrow-up" className="w-6 h-6 transition-colors duration-200" />
                         </button>
-                        
+
                         <span className="m-2">
                             {pollClub[clubData.id] || 0}
                         </span>
-        
+
                         <button
                             onClick={() => handleVote(clubData.id, "down")}
                             disabled={disabledPullClubs[clubData.id] || (pollClub[clubData.id] || 0) === 0}
-        
+
                         >
                             <FeatherIcon icon="arrow-down" className="w-6 h-6 transition-colors duration-200" />
                         </button>
-        
+
                     </div>
                 </div>
-        
+
                 {disabledPullClubs[clubData.id] && (
                     <p className="text-sm text-gray-500 mt-2">
                         You can vote again in 5 minutes.
