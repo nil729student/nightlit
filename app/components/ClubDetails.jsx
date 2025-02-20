@@ -97,7 +97,7 @@ export default function ClubDetails({ clubId, onClose }) {
           <h1 className="text-3xl font-bold text-white">{data.name}</h1>
           <a
             href={data.website}
-            target="_blank" 
+            target="_blank"
             rel="noopener noreferrer"
             className="mt-2 inline-block text-blue-400 hover:underline"
           >
@@ -105,12 +105,29 @@ export default function ClubDetails({ clubId, onClose }) {
           </a>
           <p className="mt-2 text-gray-300">{data.information}</p>
 
-          <p className="mt-2 text-gray-300">
-            <strong>Ciutat:</strong> {data.addrCity}
-          </p>
-          <p className="mt-2 text-gray-300">
-            <strong>Adreça:</strong> {data.addrStreet}, {data.addrHouseNumber}, {data.addrpostcode}
-          </p>
+          {data.region && (
+              <span className="flex flex-row mt-3 space-x-4 text-white ">
+                <FeatherIcon icon="phone" className="w-5 h-5 mr-2" />
+                {data.phone}
+              </span>
+          )}
+
+          <div className="rounded-lg shadow ">
+            {data.region && (
+              <span className=" font-semibold text-white">{data.region}</span>
+            )}
+            {data.region && data.addrCity && (
+              <span className="mx-2 text-gray-500">|</span>
+            )}
+            {data.addrCity && (
+              <span className=" font-semibold text-white">{data.addrCity}</span>
+            )}
+            <div className="mt-3">
+              <p className="text-sm text-gray-300 ">
+                {data.addrStreet}, {data.addrHouseNumber}, {data.addrpostcode}
+              </p>
+            </div>
+          </div>
           <span className="flex flex-row mt-3 space-x-4">
             {data.instagram && (
               <a href={`https://www.instagram.com/${data.instagram}`} target="_blank" rel="noopener noreferrer">

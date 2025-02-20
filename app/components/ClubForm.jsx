@@ -30,6 +30,7 @@ export default function ClubForm({ selectedClub }) {
   const [clubData, setClubData] = useState(initialClubData);
   const [loading, setLoading] = useState(true);
 
+  // Funció per carregar les dades del club del propietari
 
   const loadClubData = async () => {
     if (!session || session.user.role === "STANDARD") return;
@@ -45,6 +46,7 @@ export default function ClubForm({ selectedClub }) {
     }
   };
 
+  // Funció per carregar les dades del club seleccionat
   const loadClubSelectData = async () => {
     if (!session || session.user.role === "STANDARD") return;
     try {
@@ -70,14 +72,22 @@ export default function ClubForm({ selectedClub }) {
   useEffect(() => {
     const savedData = localStorage.getItem("clubData");
     if (savedData) {
-      setClubData(JSON.parse(savedData));
-      setLoading(false);
-    } else {
-      if (selectedClub !== undefined) {
-        loadClubSelectData();
-      } else {
-        loadClubData();
+      const parsedData = JSON.parse(savedData);
+      // Comprobar si todos los valores son cadenas vacías
+      const isEmpty = Object.keys(initialClubData).every(
+        (key) => parsedData[key] === ""
+      );
+      if (!isEmpty) {
+        setClubData(parsedData);
+        setLoading(false);
+        return; // Si no está vacío, usamos esos datos
       }
+    }
+    // Si no hay datos guardados o están vacíos, cargamos desde la API:
+    if (selectedClub) {
+      loadClubSelectData();
+    } else {
+      loadClubData();
     }
   }, [session, selectedClub]);
 
