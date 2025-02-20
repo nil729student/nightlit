@@ -65,13 +65,26 @@ export default function ClubForm({ selectedClub }) {
     return { ...initialClubData, ...sanitizedData };
   };
   
+  // Al montar el componente se intenta cargar desde localStorage;
+  // si no existen datos previos, se cargan desde la API.
   useEffect(() => {
-    if (selectedClub !== undefined) {
-      loadClubSelectData();
+    const savedData = localStorage.getItem("clubData");
+    if (savedData) {
+      setClubData(JSON.parse(savedData));
+      setLoading(false);
     } else {
-      loadClubData();
+      if (selectedClub !== undefined) {
+        loadClubSelectData();
+      } else {
+        loadClubData();
+      }
     }
   }, [session, selectedClub]);
+
+  // Cada vez que clubData cambie se guarda en localStorage
+  useEffect(() => {
+    localStorage.setItem("clubData", JSON.stringify(clubData));
+  }, [clubData]);
 
   if (status === "loading" || loading) {
     return <p>Carregant dades...</p>;
@@ -156,6 +169,8 @@ export default function ClubForm({ selectedClub }) {
     try {
       await saveClubData(session.user.id, clubData.id, clubData);
       toast.success("Dades de la discoteca actualitzades correctament.");
+      // Limpiamos el localStorage al guardar los cambios definitivamente
+      localStorage.removeItem("clubData");
     } catch (error) {
       console.error("Error actualitzant les dades de la discoteca:", error);
       toast.error("Hi ha hagut un error. Torna-ho a intentar.");

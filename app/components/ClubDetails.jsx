@@ -114,12 +114,12 @@ export default function ClubDetails({ clubId, onClose }) {
           <span className="flex flex-row mt-3 space-x-4">
             {data.instagram && (
               <a href={`https://www.instagram.com/${data.instagram}`} target="_blank" rel="noopener noreferrer">
-                <FeatherIcon icon="instagram" className="" />
+                <FeatherIcon icon="instagram" className="text-white" />
               </a>
             )}
             {data.facebook && (
               <a href={`https://www.facebook.com/${data.facebook}`} target="_blank" rel="noopener noreferrer">
-                <FeatherIcon icon="facebook" className="" />
+                <FeatherIcon icon="facebook" className="text-white" />
               </a>
             )}
             {data.twitter && (

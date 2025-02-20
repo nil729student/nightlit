@@ -60,11 +60,6 @@ export default function OwnerRegisterPage() {
                 Back to login
             </Link>
             <form className="bg-white text-black p-6 rounded-lg shadow-md w-full max-w-md overflow-auto" onSubmit={handleSubmit}>
-                {message && (
-                    <p className={`text-sm mb-4 ${message.includes("successful") ? "text-green-500" : "text-red-500"}`}>
-                        {message}
-                    </p>
-                )}
                 <div className="mb-4">
                     <label htmlFor="name" className="block text-sm font-bold mb-2">Name</label>
                     <input
@@ -153,6 +148,11 @@ export default function OwnerRegisterPage() {
                         className="w-full px-3 py-2 border rounded-lg"
                     />
                 </div>
+                {message && (
+                    <p className={`text-sm mb-4 ${message.includes("successful") ? "text-green-500" : "text-red-500"}`}>
+                        {message}
+                    </p>
+                )}
                 <button
                     type="submit"
                     className="w-full bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600"
@@ -162,7 +162,7 @@ export default function OwnerRegisterPage() {
 
                 <Link href="/register">
                     <button className=" hover:border-b-4 ">
-                        I'm user!
+                        I&apos;m user!
                     </button>
                 </Link>
             </form>
