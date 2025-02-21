@@ -38,7 +38,7 @@ export function SearchBar({ clubs, setFilteredClubs }) {
   return (
     <div className="flex flex-col items-center justify-center w-full mb-8 px-4 md:px-20 ">
       {/* Search Input */}
-      <div className="relative w-full md:w-3/5 mb-3">
+      <div className="relative w-full md:w-3/4 mb-3">
         <input
           type="text"
           placeholder="Search Club"
