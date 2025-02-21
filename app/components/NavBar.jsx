@@ -160,7 +160,7 @@ export function NavBar() {
                     <ul className="px-2 pt-2 pb-3 space-y-1">
                         <li>
                             <Link href="/" className={`block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 ${isActive('/')}`}>
-                                Home
+                                Feed
                             </Link>
                         </li>
                         {session ? (
