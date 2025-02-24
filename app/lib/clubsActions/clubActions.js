@@ -31,7 +31,6 @@ export async function getOwnerClubData(ownerId) {
     }
 }
 
-
 export async function saveClubData(ownerId, clubid, data) {
     if (!ownerId) throw new Error("Falta l'ID del propietari.");
 
@@ -47,7 +46,12 @@ export async function saveClubData(ownerId, clubid, data) {
         const sanitizedData = Object.fromEntries(
             Object.entries(data)
                 .filter(([key]) => validFields.includes(key)) // Incueix les dades valides
-                .map(([key, value]) => [key, value ?? null]) // Convertir undefined a null
+                .map(([key, value]) => {
+                    if (key === 'latitude' || key === 'longitude') {
+                        return [key, value ? parseFloat(value) : null];
+                    }
+                    return [key, value ?? null]; // Convertir undefined a null
+                })
         );
 
         // Upsert de dades
@@ -125,7 +129,6 @@ export async function deleteClub(clubId) {
         throw new Error("Error deleting club");
     }
 }
-
 
 export async function getTop5Clubs() {
     try {

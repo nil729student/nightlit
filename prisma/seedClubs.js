@@ -5,8 +5,8 @@ import fs from 'fs';
 async function seedClubs() {
   try {
     // 1. Leer archivo JSON
-    const filePath = path.join(__dirname, 'clubs.json');
-    const rawData = fs.readFileSync(filePath, 'utf-8');
+    //const filePath = path.join(__dirname, 'clubs.json');
+    const rawData = fs.readFileSync('./clubs.json', 'utf-8');
     const clubs = JSON.parse(rawData);
 
     // 2. Insertar en lote

@@ -39,13 +39,14 @@ model Club {
   facebook        String?
   phone           String?
   email           String?
-  nodeId          String
+  nodeId          String?
   rating          Float?
   information     String?
   ownerId         Int?
   banner          String?
   region          String?
   twitter         String?
+  tiktok          String?
   owner           User?      @relation("OwnerClubs", fields: [ownerId], references: [id])
   playlists       Playlist[]
   votes           Vote[]

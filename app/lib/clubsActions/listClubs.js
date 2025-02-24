@@ -32,7 +32,7 @@ export async function listClubsByCityPullOrder() {
     try {
         const clubs = await prisma.club.findMany({
             where: {
-                addrCity: { not: null },
+                addrCity: { not: '' }, //{not: null} Avans estava així
             },
             include: {
                 votes: true,
