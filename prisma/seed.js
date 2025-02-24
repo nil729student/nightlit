@@ -77,14 +77,21 @@ async function main() {
   // More Clubs
   const club2 = await prisma.club.create({
     data: {
-      name: 'Club de Jazz',
-      amenity: 'Jazz Lounge',
-      addrCity: 'Chicago',
-      latitude: 41.8781,
-      longitude: -87.6298,
-      nodeId: 'jazz-club-node-id',
-      rating: 4.8,
-      ownerId: ownerUser.id,
+      name: "Example Club",
+      addrCity: "example city",
+      addrStreet: "example street",
+      addrHouseNumber: "0",
+      addrpostcode: "17190",
+      website: "example.com",
+      instagram: "https://www.instagram.com/lamirona",
+      facebook: "https://www.facebook.com/lamiriona",
+      phone: "972232375",
+      information: "example example example",
+      banner: "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/the-loft-nightclub.jpg",
+      region: "example",
+      twitter: null,
+      tiktok: null,
+      ownerId: ownerUser.id, // assiguem el usuari com a propietari del club
     },
   });
 

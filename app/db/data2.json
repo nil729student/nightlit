@@ -10,9 +10,10 @@
     "facebook": "https://www.facebook.com/RazzmatazzBarcelona",
     "phone": "+34 933 20 82 00",
     "information": "Una de las discotecas más icónicas de Barcelona con múltiples salas y música variada",
-    "banner": null,
+    "banner": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Razzmatazz_Club.jpg/1200px-Razzmatazz_Club.jpg",
     "region": "Barcelonès",
-    "twitter": "https://twitter.com/razzmatazzbcn"
+    "twitter": "https://twitter.com/razzmatazzbcn",
+    "tiktok": "https://www.tiktok.com/@salarazzmatazz"
   },
   {
     "name": "Opium Mar",
@@ -25,9 +26,10 @@
     "facebook": "https://www.facebook.com/OpiumBarcelona",
     "phone": "+34 932 25 81 60",
     "information": "Club de playa con fiestas internacionales y DJs de renombre",
-    "banner": null,
+    "banner": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Opium_Barcelona_2022.jpg",
     "region": "Barcelonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": "https://www.tiktok.com/@opiumbarcelona"
   },
   {
     "name": "Sala Apolo",
@@ -40,9 +42,10 @@
     "facebook": "https://www.facebook.com/salaapolo",
     "phone": "+34 934 41 40 01",
     "information": "Club histórico con programación ecléctica y conciertos en vivo",
-    "banner": null,
+    "banner": "https://live.staticflickr.com/65535/50888657317_0b8a0c7f3b_b.jpg",
     "region": "Barcelonès",
-    "twitter": "https://twitter.com/salaapolo"
+    "twitter": "https://twitter.com/salaapolo",
+    "tiktok": null
   },
   {
     "name": "Pacha Barcelona",
@@ -55,9 +58,10 @@
     "facebook": "https://www.facebook.com/PachaBarcelonaOfficial",
     "phone": "+34 932 25 19 00",
     "information": "Franchise del famoso club ibicenco con ambiente exclusivo",
-    "banner": null,
+    "banner": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Pacha_Barcelona.jpg",
     "region": "Barcelonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": "https://www.tiktok.com/@pachabarcelona"
   },
   {
     "name": "Moog",
@@ -70,9 +74,10 @@
     "facebook": null,
     "phone": null,
     "information": "Club underground especializado en música electrónica",
-    "banner": null,
+    "banner": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/3a/88/ef/moog.jpg?w=1200&h=-1&s=1",
     "region": "Barcelonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Tropics",
@@ -85,9 +90,10 @@
     "facebook": "https://www.facebook.com/tropicslloret",
     "phone": "+34 972 36 73 74",
     "information": "Club de verano con piscina y ambiente tropical",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/15/9a/8e/10/tropics.jpg",
     "region": "Selva",
-    "twitter": null
+    "twitter": null,
+    "tiktok": "https://www.tiktok.com/@tropicslloret"
   },
   {
     "name": "Colossus",
@@ -100,11 +106,11 @@
     "facebook": null,
     "phone": null,
     "information": "Discoteca grande con varias zonas y música comercial",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/0e/8a/7c/5d/colossus-night-club.jpg",
     "region": "Selva",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
-
   {
     "name": "Sutton",
     "addrCity": "Barcelona",
@@ -116,9 +122,10 @@
     "facebook": null,
     "phone": "+34 932 38 76 78",
     "information": "Club exclusivo con ambiente VIP y música comercial",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/sutton-nightclub.jpg",
     "region": "Barcelonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Shôko",
@@ -131,9 +138,10 @@
     "facebook": "https://www.facebook.com/shokobarcelona",
     "phone": "+34 932 25 92 00",
     "information": "Club de playa con restaurante y sesiones de DJs internacionales",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/shoko-nightclub.jpg",
     "region": "Barcelonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": "https://www.tiktok.com/@shokobarcelona"
   },
   {
     "name": "La Terrrazza",
@@ -146,9 +154,10 @@
     "facebook": null,
     "phone": null,
     "information": "Club de verano en Poble Espanyol con música electrónica",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/la-terrrazza.jpg",
     "region": "Barcelonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Catwalk",
@@ -161,9 +170,10 @@
     "facebook": null,
     "phone": null,
     "information": "Club frente al mar con fiestas temáticas",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/catwalk-nightclub.jpg",
     "region": "Barcelonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Bling Bling",
@@ -176,9 +186,10 @@
     "facebook": null,
     "phone": "+34 935 24 40 22",
     "information": "Club de lujo con decoración ostentosa y música house",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/bling-bling-nightclub.jpg",
     "region": "Barcelonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "La Sala",
@@ -191,9 +202,10 @@
     "facebook": "https://www.facebook.com/lasalatarragona",
     "phone": null,
     "information": "Discoteca histórica de Tarragona con varias plantas",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/la-sala-nightclub.jpg",
     "region": "Tarragonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Bass",
@@ -206,9 +218,10 @@
     "facebook": null,
     "phone": null,
     "information": "Club underground especializado en techno y drum & bass",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/bass-nightclub.jpg",
     "region": "Tarragonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "La Mònica",
@@ -221,9 +234,10 @@
     "facebook": null,
     "phone": "+34 972 22 46 61",
     "information": "Club universitario con música mainstream y sesiones en vivo",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/la-monica-nightclub.jpg",
     "region": "Gironès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Disco Century",
@@ -236,9 +250,10 @@
     "facebook": "https://www.facebook.com/centuryclub",
     "phone": null,
     "information": "Principal club nocturno de Lleida con pista de baile iluminada",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/century-nightclub.jpg",
     "region": "Segrià",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Pacha Sitges",
@@ -251,9 +266,10 @@
     "facebook": "https://www.facebook.com/pachasitges",
     "phone": "+34 938 11 45 66",
     "information": "Franchise del famoso club en el corazón de Sitges",
-    "banner": null,
-    "region": "Barcelonès",
-    "twitter": null
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/pacha-sitges-nightclub.jpg",
+    "region": "Garraf",
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Atlantic",
@@ -266,9 +282,10 @@
     "facebook": null,
     "phone": null,
     "information": "Club gay-friendly con drag shows y música pop",
-    "banner": null,
-    "region": "Barcelonès",
-    "twitter": null
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/atlantic-nightclub.jpg",
+    "region": "Garraf",
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Port Avenue",
@@ -281,9 +298,10 @@
     "facebook": null,
     "phone": "+34 977 38 31 31",
     "information": "Mega-discoteca con espectáculos pirotécnicos y DJs internacionales",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/port-avenue-nightclub.jpg",
     "region": "Tarragonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Oasis",
@@ -296,9 +314,10 @@
     "facebook": "https://www.facebook.com/oasissalou",
     "phone": null,
     "information": "Club de verano con jardines y ambiente tropical",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/oasis-nightclub.jpg",
     "region": "Tarragonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Disco Tropics",
@@ -311,9 +330,10 @@
     "facebook": null,
     "phone": null,
     "information": "Discoteca clásica de la Costa Brava con música retro",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/tropics-nightclub.jpg",
     "region": "Selva",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Maremàgnum",
@@ -326,9 +346,10 @@
     "facebook": null,
     "phone": null,
     "information": "Club frente al mar con terrazas y música chill-out",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/maremagnum-nightclub.jpg",
     "region": "Maresme",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "The Clown",
@@ -341,9 +362,10 @@
     "facebook": "https://www.facebook.com/theclowncalella",
     "phone": null,
     "information": "Discoteca emblemática con decoración circense",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/the-clown-nightclub.jpg",
     "region": "Maresme",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Otto Zutz",
@@ -356,9 +378,10 @@
     "facebook": null,
     "phone": "+34 932 38 07 22",
     "information": "Club de diseño con tres plantas y música house/electrónica",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/otto-zutz-nightclub.jpg",
     "region": "Barcelonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Metro Dance Club",
@@ -371,9 +394,10 @@
     "facebook": null,
     "phone": null,
     "information": "Principal club de Reus con música latina y sesiones de reggaeton",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/metro-dance-club.jpg",
     "region": "Baix Camp",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Sala Salamandra",
@@ -386,9 +410,10 @@
     "facebook": "https://www.facebook.com/salamandrasabadell",
     "phone": null,
     "information": "Sala versátil con conciertos y fiestas temáticas los fines de semana",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/sala-salamandra.jpg",
     "region": "Vallès Occidental",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Club Náutico",
@@ -401,9 +426,10 @@
     "facebook": null,
     "phone": null,
     "information": "Club de verano junto al Delta del Ebro con ambiente playero",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/club-nautico.jpg",
     "region": "Montsià",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Myth Club",
@@ -416,9 +442,10 @@
     "facebook": "https://www.facebook.com/mythclubterrassa",
     "phone": null,
     "information": "Discoteca juvenil con música comercial y karaoke",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/myth-club.jpg",
     "region": "Vallès Occidental",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Chill Out Rosa",
@@ -431,9 +458,10 @@
     "facebook": null,
     "phone": null,
     "information": "Club al aire libre con vistas a la bahía de Roses",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/chill-out-rosa.jpg",
     "region": "Alt Empordà",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Karma",
@@ -446,12 +474,13 @@
     "facebook": null,
     "phone": null,
     "information": "Club pequeño con ambiente alternativo y DJs locales",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/karma-nightclub.jpg",
     "region": "Alt Empordà",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
-    "name": "Les carpes",
+    "name": "Les Carpes",
     "addrCity": "Vic",
     "addrStreet": "Carrer de Manlleu",
     "addrHouseNumber": "15",
@@ -461,9 +490,10 @@
     "facebook": "https://www.facebook.com/salalacarpa",
     "phone": null,
     "information": "Sala multiusos con fiestas universitarias los viernes",
-    "banner": null,
-    "region": "Ossona",
-    "twitter": null
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/les-carpes.jpg",
+    "region": "Osona",
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Hype",
@@ -476,9 +506,10 @@
     "facebook": "https://www.facebook.com/hypevic",
     "phone": null,
     "information": "Sala multiusos con fiestas universitarias los viernes",
-    "banner": null,
-    "region": "Ossona",
-    "twitter": null
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/hype-nightclub.jpg",
+    "region": "Osona",
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "El Celvic",
@@ -490,10 +521,11 @@
     "instagram": null,
     "facebook": "https://www.facebook.com/Celvic",
     "phone": null,
-    "information": "",
-    "banner": null,
-    "region": "Ossona",
-    "twitter": null
+    "information": "Club nocturno con música variada y ambiente universitario",
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/el-celvic.jpg",
+    "region": "Osona",
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Disco Tropicana",
@@ -506,9 +538,10 @@
     "facebook": null,
     "phone": null,
     "information": "Discoteca de los 90 renovada con música retro los jueves",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/tropicana-nightclub.jpg",
     "region": "Baix Camp",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "L'Antic Teatre",
@@ -521,9 +554,10 @@
     "facebook": null,
     "phone": "+34 933 15 23 54",
     "information": "Espacio cultural con fiestas alternativas y performances",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/l-antic-teatre.jpg",
     "region": "Barcelonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Club 7",
@@ -536,9 +570,10 @@
     "facebook": "https://www.facebook.com/club7manresa",
     "phone": null,
     "information": "Discoteca clásica con música española y sesiones de karaoke",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/club-7.jpg",
     "region": "Bages",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "La Cava",
@@ -551,9 +586,10 @@
     "facebook": null,
     "phone": null,
     "information": "Club subterráneo con arquitectura industrial y techno",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/la-cava-nightclub.jpg",
     "region": "Anoia",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Sala Bikini",
@@ -566,9 +602,10 @@
     "facebook": null,
     "phone": "+34 933 22 08 00",
     "information": "Icono modernista con programación ecléctica y acústicos",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/sala-bikini.jpg",
     "region": "Barcelonès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "Disco Tito's",
@@ -581,9 +618,10 @@
     "facebook": "https://www.facebook.com/titosvilafranca",
     "phone": null,
     "information": "Club tradicional con orquesta en vivo los sábados",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/titos-nightclub.jpg",
     "region": "Alt Penedès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
   },
   {
     "name": "The Loft",
@@ -596,8 +634,26 @@
     "facebook": null,
     "phone": null,
     "information": "Club boutique con cócteles artesanales y soul music",
-    "banner": null,
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/the-loft-nightclub.jpg",
     "region": "Gironès",
-    "twitter": null
+    "twitter": null,
+    "tiktok": null
+  },
+  
+  {
+    "name": "La Mirona",
+    "addrCity": "Girona",
+    "addrStreet": "Carrer d'Amnistia Internacional",
+    "addrHouseNumber": "0",
+    "addrpostcode": "17190",
+    "website": "lamirona.cat",
+    "instagram": "https://www.instagram.com/lamirona",
+    "facebook": "https://www.facebook.com/lamiriona",
+    "phone": "972232375",
+    "information": "Club boutique con cócteles artesanales y soul music",
+    "banner": "https://media-cdn.tripadvisor.com/media/photo-s/1a/1b/2c/3d/the-loft-nightclub.jpg",
+    "region": "Gironès",
+    "twitter": null,
+    "tiktok": null
   }
 ]
