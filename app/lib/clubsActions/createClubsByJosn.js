@@ -9,7 +9,7 @@ async function main() {
 
         for (const item of data.features) {
             const { properties, geometry } = item;
-            const { '@id': nodeId, name, amenity, website,'addr:city': addrCity, 'addr:street': addrStreet, 'addr:housenumber': addrHouseNumber } = properties;
+            const { '@id': nodeId, name, amenity, website, 'addr:region': region, 'addr:city': addrCity, 'addr:street': addrStreet, 'addr:housenumber': addrHouseNumber } = properties;
             //const [longitude, latitude] = geometry.coordinates;
             //console.log(properties, geometry)
             const longitude = geometry.coordinates[0];
@@ -24,6 +24,7 @@ async function main() {
                         amenity,
                         name,
                         website,
+                        region,
                         addrCity,
                         addrStreet,
                         addrHouseNumber,
