@@ -18,6 +18,8 @@ export default function StandardRegisterPage() {
     });
 
     const [message, setMessage] = useState("");
+    const [acceptTerms, setAcceptTerms] = useState(false);
+    const [showTerms, setShowTerms] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -27,9 +29,14 @@ export default function StandardRegisterPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage("");
-        
+
         if (!validatePassword(formData.password)) {
-            setMessage("Passwordn 8 characters and one capital letter.");
+            setMessage("Password must have at least 8 characters and one capital letter.");
+            return;
+        }
+
+        if (!acceptTerms) {
+            setMessage("You must accept the terms and conditions to register.");
             return;
         }
 
@@ -49,10 +56,12 @@ export default function StandardRegisterPage() {
     };
 
     const handleGoogleSignIn = async () => {
+        if (!acceptTerms) {
+            setMessage("You must accept the terms and conditions to register.");
+            return;
+        }
         await signIn("google", { callbackUrl: "/" });
     };
-
-
 
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-purple-500 to-pink-500 text-white">
@@ -96,6 +105,28 @@ export default function StandardRegisterPage() {
                         className="w-full px-3 py-1 bg-transparent border-b-2"
                     />
                 </div>
+
+                {/* Terms and conditions checkbox */}
+                <div className="mb-4 flex items-center">
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        checked={acceptTerms}
+                        onChange={() => setAcceptTerms(!acceptTerms)}
+                        className="mr-2"
+                    />
+                    <label htmlFor="terms" className="text-sm">
+                        I accept the{" "}
+                        <button
+                            type="button"
+                            className="text-blue-300 underline"
+                            onClick={() => setShowTerms(true)}
+                        >
+                            Terms and Conditions
+                        </button>
+                    </label>
+                </div>
+
                 <button
                     type="submit"
                     className="w-full bg-white text-pink-500 font-semibold py-2 px-4 rounded-lg hover:bg-gray-200"
@@ -104,6 +135,7 @@ export default function StandardRegisterPage() {
                 </button>
                 {/* google button for register */}
                 <button
+                    type="button"
                     onClick={handleGoogleSignIn}
                     className="w-full bg-white text-pink-500 font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 mt-2"
                 >
@@ -118,6 +150,41 @@ export default function StandardRegisterPage() {
                     </Link>
                 </div>
             </form>
+
+            {/* Terms and conditions modal */}
+            {showTerms && (
+                <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+                    <div className="bg-white text-black p-6 rounded-lg max-w-2xl max-h-[80vh] overflow-y-auto">
+                        <h2 className="text-2xl font-bold mb-4">Terms and Conditions</h2>
+                        <div className="mb-4">
+                            <h3 className="text-lg font-semibold">1. Acceptance of Terms</h3>
+                            <p>By accessing and using the Nightlit service, you agree to be bound by these Terms and Conditions.</p>
+                        </div>
+                        <div className="mb-4">
+                            <h3 className="text-lg font-semibold">2. Privacy Policy</h3>
+                            <p>Your use of Nightlit is also governed by our Privacy Policy, which explains how we collect and use your information.</p>
+                        </div>
+                        <div className="mb-4">
+                            <h3 className="text-lg font-semibold">3. User Accounts</h3>
+                            <p>You are responsible for maintaining the confidentiality of your account and password. You agree to accept responsibility for all activities that occur under your account.</p>
+                        </div>
+                        <div className="mb-4">
+                            <h3 className="text-lg font-semibold">4. Club Owner Responsibilities</h3>
+                            <p>If you register as a club owner, you are responsible for the accuracy of the information provided about your establishment.</p>
+                        </div>
+                        <div className="mb-4">
+                            <h3 className="text-lg font-semibold">5. Prohibited Activities</h3>
+                            <p>Users must not engage in any activity that violates local laws or regulations, or that could harm other users or the platform.</p>
+                        </div>
+                        <button
+                            className="mt-4 bg-pink-500 text-white py-2 px-4 rounded"
+                            onClick={() => setShowTerms(false)}
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
