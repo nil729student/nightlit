@@ -4,7 +4,7 @@ import Link from 'next/link';
 import LogoutButton from './loginComponents/LogoutButton';
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation'
- 
+
 export function NavBar() {
     const { data: session } = useSession();
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -57,6 +57,10 @@ export function NavBar() {
                 <div className="hidden md:flex md:items-center md:space-x-4">
                     <Link href="/" className={`px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded ${isActive('/')}`}>
                         Feed
+                    </Link>
+
+                    <Link href="/about" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 ${isActive('/feed')}`}>
+                        Abaout Us & Contact
                     </Link>
                     {session && (
                         <>
@@ -133,6 +137,11 @@ export function NavBar() {
                                             </Link>
                                         </li>
                                         <li>
+                                            <Link href="/about" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 ${isActive('/feed')}`}>
+                                                Abaout Us & Contact
+                                            </Link>
+                                        </li>
+                                        <li>
                                             <Link href="/profile" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 ${isActive('/profile')}`}>
                                                 Profile
                                             </Link>
@@ -163,11 +172,21 @@ export function NavBar() {
                                 Feed
                             </Link>
                         </li>
+                        <li>
+                            <Link href="/about" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 ${isActive('/feed')}`}>
+                                Abaout Us & Contact
+                            </Link>
+                        </li>
                         {session ? (
                             <>
                                 <li>
                                     <Link href="/feed" className={`block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 ${isActive('/feed')}`}>
                                         Feed
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/about" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 ${isActive('/feed')}`}>
+                                        Abaout Us & Contact
                                     </Link>
                                 </li>
                                 <li>

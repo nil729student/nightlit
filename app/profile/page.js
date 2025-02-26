@@ -9,6 +9,10 @@ export default function ProfilePage() {
   if (status === "loading") {
     return <p>Carregant dades...</p>;
   }
+  // Si no hi ha usuari autenticat redirigeix a la pàgina inicial
+  if (!session) { 
+    return
+  }
 
 
   return (

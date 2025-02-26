@@ -54,3 +54,17 @@ export async function getAllEmails() {
         return null;
     }
 }
+
+export async function deleteUserAccount(userId) {
+    try {
+      // Eliminar el usuario de la base de datos
+      await prisma.user.delete({
+        where: { id: userId },
+      });
+      
+      return { success: true };
+    } catch (error) {
+      console.error("Error eliminando la cuenta del usuario:", error.message);
+      return { success: false, error: error.message };
+    }
+  }
