@@ -1,0 +1,39 @@
+Autentificació d'usuari
+FET - Regeneració de contrasenya per mail 
+FET - Autentificació google
+FET - perfil d'usuari
+FET    - foto del usuari (falta actualizar la sessió)
+FET    - Dades del usuari
+FET    - Sistema de votacions no pots votar negatiu pro si que resti
+
+FET - l'usuari pugi fer votacions
+FET    . validació limitada per temps
+
+Falta - Enviar mail mostrar ranking de discoteca i de cançons setmanal ment
+Falta  - Cada semana s'esborrin les votacion de totes les dicoteques
+
+Cançons
+FET - Llistat de cançons per discoteca.
+
+Fer tres tipos de usuari( nou camp a la taula usuari ROL)
+FET -  admin (nomes hi haura un admin) 
+FET -  propietari (modifica les cançons de la seva discoteca)
+FET -  usuari normal 
+
+Extres
+Utilitats
+Propostes de cançons
+- Vista propostes pot aceptar propostes
+- Mostrar a un componet totes les cançons que no estigui associada a la llista de a quella discoteca
+
+model Propostes {
+  id                Int            @id @default(autoincrement())
+  userId             Int
+  songId
+  clubId // Perdefecte null
+  artist            String
+  playlists         Playlist[]
+  songVotes         SongVote[]
+}
+
+Entregar: 13/01/25

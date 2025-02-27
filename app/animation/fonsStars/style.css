@@ -1,0 +1,58 @@
+/* Estils bàsics per a la pàgina */
+main {
+  margin: 0;
+  /* Fons amb degradat que simula un cel nocturn */
+  background-color: #090a0f;
+  background-color: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  position: relative;
+}
+
+/* Contenidor complet per a les estrelles */
+.stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 99%;
+  height: 100%;
+}
+
+/* Estrelles estàtiques que parpellegen */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+/* Animació de parpelleig */
+@keyframes twinkle {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Estels fugaces */
+.shooting-star {
+  position: absolute;
+  width: 2px;
+  height: 80px;
+  background: linear-gradient(white, rgba(255, 255, 255, 0));
+  opacity: 0;
+  transform: rotate(60deg);
+  animation: shooting 2s infinite;
+}
+
+/* Animació de l'estel fugaz */
+@keyframes shooting {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(60deg);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(200px, -200px) rotate(60deg);
+  }
+}

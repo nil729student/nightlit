@@ -1,0 +1,106 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                  Int                  @id @default(autoincrement())
+  name                String
+  email               String               @unique
+  authProvider        String?
+  image               String?
+  nif                 String?
+  provider_id         String?
+  role                Role                 @default(STANDARD)
+  password            String
+  clubsOwned          Club[]               @relation("OwnerClubs")
+  passwordResetTokens PasswordResetToken[]
+  songVotes           SongVote[]
+  votes               Vote[]
+}
+
+model Club {
+  id              Int        @id @default(autoincrement())
+  name            String
+  amenity         String     @default("nightclub")
+  addrCity        String
+  addrStreet      String?
+  addrHouseNumber String?
+  addrpostcode    String?
+  latitude        Float?
+  longitude       Float?
+  website         String?
+  instagram       String?
+  facebook        String?
+  phone           String?
+  email           String?
+  nodeId          String?
+  rating          Float?
+  information     String?
+  ownerId         Int?
+  banner          String?
+  region          String?
+  twitter         String?
+  tiktok          String?
+  owner           User?      @relation("OwnerClubs", fields: [ownerId], references: [id])
+  playlists       Playlist[]
+  votes           Vote[]
+}
+
+model Vote {
+  id     Int      @id @default(autoincrement())
+  userId Int
+  clubId Int
+  vote   Int
+  week   DateTime
+  club   Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Song {
+  id        Int        @id @default(autoincrement())
+  title     String
+  artist    String
+  url       String
+  playlists Playlist[]
+  songVotes SongVote[]
+}
+
+model Playlist {
+  id     Int  @id @default(autoincrement())
+  clubId Int
+  songId Int
+  club   Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  song   Song @relation(fields: [songId], references: [id], onDelete: Cascade)
+}
+
+model SongVote {
+  id     Int      @id @default(autoincrement())
+  userId Int
+  songId Int
+  vote   Int
+  week   DateTime
+  song   Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  expiresAt DateTime
+  userId    Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  STANDARD
+  OWNER
+  ADMIN
+}
