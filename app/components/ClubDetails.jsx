@@ -1,10 +1,9 @@
 "use client"
 import styles from "./ClubDetails.module.css";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { getClubData } from "../lib/clubsActions/clubActions";
 import { getSongs } from "../lib/clubsActions/songActions";
-import Link from "next/link";
 import Image from 'next/image';
 import FeatherIcon from 'feather-icons-react';
 
@@ -21,7 +20,8 @@ export default function ClubDetails({ clubId, onClose }) {
     error: null,
   });
 
-  const fetchData = async () => {
+  // Wrap your functions in useCallback
+  const fetchData = useCallback(async () => {
     setClubData({ data: null, loading: true, error: null });
     try {
       const data = await getClubData(clubId);
@@ -29,9 +29,9 @@ export default function ClubDetails({ clubId, onClose }) {
     } catch {
       setClubData({ data: null, loading: false, error: "Error carregant dades." });
     }
-  };
+  }, [clubId]); // Add clubId as a dependency
 
-  const fetchSongs = async () => {
+  const fetchSongs = useCallback(async () => {
     setSongsData({ data: [], loading: true, error: null });
     try {
       const data = await getSongs(clubId);
@@ -39,12 +39,13 @@ export default function ClubDetails({ clubId, onClose }) {
     } catch {
       setSongsData({ data: [], loading: false, error: "Error carregant cançons." });
     }
-  };
+  }, [clubId]); // Add clubId as a dependency
 
+  // Now the useEffect is safe
   useEffect(() => {
     fetchData();
     fetchSongs();
-  }, [clubId]);
+  }, [fetchData, fetchSongs]);
 
   const { data, loading, error } = clubData;
 

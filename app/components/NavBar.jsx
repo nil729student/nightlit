@@ -1,4 +1,5 @@
 "use client";
+import Image from 'next/image';
 import { useState } from 'react';
 import Link from 'next/link';
 import LogoutButton from './loginComponents/LogoutButton';
@@ -90,10 +91,12 @@ export function NavBar() {
                         aria-expanded={isUserDropdownOpen ? "true" : "false"}
                     >
                         <span className="sr-only">Abrir menú de usuario</span>
-                        <img
-                            className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-700 border-green-400  border-2"
+                        <Image
+                            className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-700 border-green-400 border-2"
                             src={session ? session.user.image : '/uploads/usersProfileImages/default.png'}
                             alt="Foto de perfil"
+                            width={32}  // w-8 = 2rem = 32px
+                            height={32} // h-8 = 2rem = 32px
                         />
                     </button>
                     {isUserDropdownOpen && (

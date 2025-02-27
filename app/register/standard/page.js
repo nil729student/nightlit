@@ -143,7 +143,7 @@ export default function StandardRegisterPage() {
                 </button>
                 <div className="mt-4 flex justify-between">
                     <Link href="/register/owner" className="text-sm hover:underline">
-                        I'm a club owner!
+                        I&apos;m a club owner!
                     </Link>
                     <Link href="/login" className="text-sm hover:underline">
                         Back to login

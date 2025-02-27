@@ -48,7 +48,7 @@ export default function Club({ clubData, pollClub, setPollClub }) {
                 return () => clearTimeout(timeout); // si no ha passat el temps, es cancela el temps
             }
         }
-    }, [session, clubData.id]);
+    }, [session, clubData.id, cooldownPull]);
 
     // Nuevo efecto para el scroll
     useEffect(() => {
@@ -71,7 +71,7 @@ export default function Club({ clubData, pollClub, setPollClub }) {
         // Agregar listener con throttling
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [scale]);
     const handleVote = async (idClub, voteType) => {
         if (!session || !session.user) {
             router.push("/login");

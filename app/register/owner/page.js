@@ -214,7 +214,7 @@ export default function OwnerRegisterPage() {
                             <p>As a club owner, you agree to:</p>
                             <ul className="list-disc ml-5">
                                 <li>Provide accurate information about your establishment</li>
-                                <li>Maintain and update your club's information</li>
+                                <li>Maintain and update your club&apos;s information</li>
                                 <li>Respect user privacy and comply with all applicable laws</li>
                                 <li>Not engage in false advertising or misrepresentation</li>
                             </ul>

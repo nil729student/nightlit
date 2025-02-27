@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { getClubData, getOwnerClubData, saveClubData } from "../lib/clubsActions/clubActions";
@@ -94,7 +94,7 @@ export default function ClubForm({ selectedClub }) {
   // Cada vez que clubData cambie se guarda en localStorage
   useEffect(() => {
     localStorage.setItem("clubData", JSON.stringify(clubData));
-  }, [clubData]);
+  }, [clubData, loadClubData, loadClubSelectData]);
 
   if (status === "loading" || loading) {
     return <p>Carregant dades...</p>;
@@ -262,13 +262,14 @@ export default function ClubForm({ selectedClub }) {
             type="file"
             onChange={handleBannerUpload}
             className="w-full p-3 border rounded-lg"
-
           />
           {clubData.banner && (
-            <img
+            <Image
               src={clubData.banner}
               alt="banner"
-              className="w-28 h-28 rownded-mid object-cover border-4 border-blue-500"
+              width={112} // 28px * 4 (w-28 = 7rem = 112px)
+              height={112} // 28px * 4 (h-28 = 7rem = 112px)
+              className="rounded-md object-cover border-4 border-blue-500"
             />
           )}
         </div>

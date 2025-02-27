@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { getUserData, updateUserData, deleteUserAccount } from "../../lib/userActions/userDataActions"
 import { useSession, signOut } from "next-auth/react"
@@ -109,10 +110,12 @@ export default function StandardProfileForm({ user }) {
       <h2 className="text-2xl font-bold mb-4">Dades personals</h2>
       <div className="flex items-center space-x-6 mb-6">
         <div className="relative">
-          <img
+          <Image
             src={formData.image}
             alt="Foto de perfil"
             className="w-28 h-28 rounded-full object-cover border-4 border-blue-500"
+            width={112}
+            height={112}
           />
           <label
             htmlFor="image-upload"
