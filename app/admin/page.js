@@ -1,21 +1,35 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {deleteClub } from "../lib/clubsActions/clubActions";
+import { deleteClub } from "../lib/clubsActions/clubActions";
 import { useRouter } from "next/navigation";
 import { listClubs } from "../lib/clubsActions/listClubs";
 import ClubForm from "../components/ClubForm";
 import { useSession } from "next-auth/react";
-//import ClubDetails from "../components/ClubDetails";
 
 export default function AdminPage() {
-  const { data: session } = useSession();
+  const router = useRouter();
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push('/login');
+    },
+  });
+
   const [clubs, setClubs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedClub, setSelectedClub] = useState(null);
-  const router = useRouter();
 
+  // Add authentication check before fetching data
   useEffect(() => {
+    if (status === 'loading') return;
+
+    // Only allow admins to access this page
+    if (!session || session.user.role !== 'ADMIN') {
+      router.push('/');
+      return;
+    }
+
     async function fetchClubs() {
       try {
         const fetchedClubs = await listClubs();
@@ -26,8 +40,9 @@ export default function AdminPage() {
         setLoading(false);
       }
     }
+
     fetchClubs();
-  }, []);
+  }, [session, status, router]);
 
   const handleDelete = async (clubId) => {
     try {
